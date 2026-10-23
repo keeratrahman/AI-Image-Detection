@@ -1,0 +1,70 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_resnet18_scratch_jpeg-crop_lr1e-3_s0",
+  "protocol": "A",
+  "model": "resnet18",
+  "init": "scratch",
+  "prep": "jpeg-crop",
+  "lr": 0.001,
+  "seed": 0,
+  "best_epoch": 1,
+  "val": {
+    "loss": 0.0,
+    "auc": 1.0,
+    "acc": 1.0
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.1892514511664558,
+      "val_loss": 0.0,
+      "val_auc": 1.0,
+      "val_acc": 1.0
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.0009127947728302388,
+      "val_loss": 0.0,
+      "val_auc": 1.0,
+      "val_acc": 1.0
+    },
+    {
+      "epoch": 3,
+      "train_loss": 6.151204047455394e-06,
+      "val_loss": 1.185191820241016e-06,
+      "val_auc": 1.0,
+      "val_acc": 1.0
+    }
+  ],
+  "test": {
+    "per_generator_auc": {}
+  },
+  "checkpoint": "runs_smoke/A_resnet18_scratch_jpeg-crop_lr1e-3_s0/best.pt",
+  "git_commit": "8b213db4b5bf885b0e569572a71c38ce7a6facae",
+  "timestamp": "2026-10-23T23:31:05.401089+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "resnet18",
+    "init": "scratch",
+    "prep": "jpeg-crop",
+    "lr": 0.001,
+    "seed": 0,
+    "epochs": 3,
+    "batch_size": 32,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 0,
+    "data": {
+      "name": "stub",
+      "stub_train_size": 128,
+      "stub_val_size": 64
+    },
+    "output_dir": "runs_smoke",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "disabled"
+    },
+    "run_name": "A_resnet18_scratch_jpeg-crop_lr1e-3_s0"
+  }
+}
