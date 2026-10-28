@@ -3,7 +3,6 @@ import numpy as np
 
 
 def roc_auc(labels, scores) -> float:
-    """Rank-based ROC AUC with tie handling. Label 1 = fake (positive class)."""
     y = np.asarray(labels).reshape(-1) > 0.5
     s = np.asarray(scores, dtype=np.float64).reshape(-1)
     n_pos = int(y.sum())
