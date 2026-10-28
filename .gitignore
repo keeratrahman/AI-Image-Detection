@@ -1,6 +1,14 @@
-   .DS_Store
-   __pycache__/
-   *.pyc
-   .venv/
-   *.pt
-   runs*/
+.DS_Store
+._*
+__pycache__/
+*.pyc
+.venv/
+*.pt
+runs*/
+wandb/
+# datasets: never commit (see docs/DATA.md for how to share)
+genimage_dl/
+genimage_pool/
+genimage_subset/
+*.zip
+*.tar

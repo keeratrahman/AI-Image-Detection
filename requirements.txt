@@ -1,5 +1,7 @@
-torch
-torchvision
+torch>=2.2
+torchvision>=0.17
+timm>=1.0        # ViT / DeiT models
+pillow>=10.0
 numpy
 pyyaml
 wandb
