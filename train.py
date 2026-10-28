@@ -162,7 +162,14 @@ def main():
         cfg["wandb"]["mode"] = args.wandb_mode
 
     seed_everything(cfg["seed"])
-    device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
+    if args.device:
+        device = torch.device(args.device)
+    elif torch.cuda.is_available():
+        device = torch.device("cuda")
+    elif torch.backends.mps.is_available():  # Apple-silicon laptops: fine for smoke tests only
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
     run_dir = Path(cfg["output_dir"]) / cfg["run_name"]
     run_dir.mkdir(parents=True, exist_ok=True)
     with open(run_dir / "config.yaml", "w") as f:

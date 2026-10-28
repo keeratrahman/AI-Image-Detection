@@ -6,7 +6,6 @@ __pycache__/
 *.pt
 runs*/
 wandb/
-# datasets: never commit (see docs/DATA.md for how to share)
 genimage_dl/
 genimage_pool/
 genimage_subset/
