@@ -6,6 +6,7 @@
 Model selection uses validation AUC on seen generators only. Held-out/test evaluation
 (per-generator AUC, robustness) belongs to eval.py, which loads best.pt.
 """
+import os
 import argparse
 import datetime
 import json
@@ -13,7 +14,9 @@ import math
 import random
 import subprocess
 from pathlib import Path
-
+# Apple GPUs (MPS): run any op MPS doesn't support on the CPU instead of crashing.
+# Must be set before torch is imported.
+os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")
 import numpy as np
 import torch
 import torch.nn as nn
@@ -214,6 +217,7 @@ def main():
         "protocol": cfg["protocol"], "model": cfg["model"], "init": cfg["init"],
         "prep": cfg["prep"], "lr": cfg["lr"], "seed": cfg["seed"],
         "best_epoch": best_epoch,
+        "device": str(device),
         "val": best_val,
         "history": history,
         "test": {"per_generator_auc": {}},  # filled in by eval.py
