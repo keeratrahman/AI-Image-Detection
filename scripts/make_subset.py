@@ -1,5 +1,6 @@
 import argparse
 import json
+import os
 import random
 import re
 import shutil
@@ -37,24 +38,31 @@ def generator_of(path: Path):
 
 def list_images(folder: Path):
     # Skip macOS "._" AppleDouble files, which exFAT/FAT drives create next to every file.
-    return sorted(p for p in folder.iterdir()
-                  if p.suffix.lower() in IMAGE_EXTS and not p.name.startswith("."))
+    return sorted(folder / name for name in os.listdir(folder)
+                  if Path(name).suffix.lower() in IMAGE_EXTS and not name.startswith("."))
 
 
-def discover(src: Path):
-    """-> {(generator, split, cls): [paths]} for split in {train, val}, cls in {ai, nature}."""
+def discover(src: Path, splits=("train", "val")):
+    """-> {(generator, split, cls): [paths]} for split in `splits`, cls in {ai, nature}.
+
+    Walks directories only and never descends into image folders, so it stays fast on
+    network filesystems (e.g. Kaggle's /kaggle/input) with hundreds of thousands of files.
+    The generator is read from the path including src's own name, so --src may be the
+    generator folder itself (e.g. .../stable_diffusion_v_1_4)."""
+    src = src.resolve()
     found = defaultdict(list)
-    for cls_dir in src.rglob("*"):
-        if not cls_dir.is_dir() or cls_dir.name not in ("ai", "nature") or cls_dir.name.startswith("."):
-            continue
-        split = cls_dir.parent.name
-        if split not in ("train", "val"):
-            continue
-        gen = generator_of(cls_dir.relative_to(src))
-        if gen is None:
-            print(f"  ! skipping {cls_dir}: cannot tell which generator it is")
-            continue
-        found[(gen, split, cls_dir.name)] += list_images(cls_dir)
+    for dirpath, dirnames, _ in os.walk(src):
+        here = Path(dirpath)
+        if here.name in ("train", "val"):
+            for cls in ("ai", "nature"):
+                if cls in dirnames and here.name in splits:
+                    gen = generator_of((here / cls).relative_to(src.parent))
+                    if gen is None:
+                        print(f"  ! skipping {here / cls}: cannot tell which generator it is")
+                    else:
+                        found[(gen, here.name, cls)] += list_images(here / cls)
+            dirnames[:] = [d for d in dirnames if d not in ("ai", "nature")]
+        dirnames[:] = [d for d in dirnames if not d.startswith(".")]
     return found
 
 
@@ -79,8 +87,7 @@ def parse_args():
 
 def main():
     args = parse_args()
-    found = discover(args.src)
-    found = {k: v for k, v in found.items() if k[1] in args.splits}
+    found = discover(args.src, args.splits)
     print("Found (generator, split, class): count")
     for key in sorted(found):
         print(f"  {key}: {len(found[key])}")
