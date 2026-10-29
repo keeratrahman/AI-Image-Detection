@@ -5,6 +5,7 @@ import random
 import re
 import shutil
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 # First matching pattern wins; matched against the lowercased folder path.
@@ -78,6 +79,7 @@ def parse_args():
     p.add_argument("--seed", type=int, default=0)
     p.add_argument("--splits", nargs="+", choices=["train", "val"], default=["train", "val"],
                    help="only use these GenImage splits from --src (e.g. train when test images come from elsewhere)")
+    p.add_argument("--workers", type=int, default=16, help="parallel file copies")
     p.add_argument("--dry-run", action="store_true", help="print what was found, copy nothing")
     p.add_argument("--pool-only", action="store_true",
                    help="only copy a random sample of whatever generators are in --src into <dest>/images "
@@ -134,16 +136,31 @@ def main():
                                        for x in take(g, "train", c, args.n_val, per_gen)]
 
     # Copy files (copyfile, not copy2: no metadata, so no "._" sidecar files on exFAT).
-    rel = {}
+    # Parallel, because network filesystems (Kaggle /kaggle/input) are slow per file; each file
+    # is written to .part and renamed, so an interrupted run never leaves a truncated image.
+    rel, jobs = {}, []
     for key, n in need.items():
         gen, split, cls = key
         d = args.dest / "images" / gen / split / cls
         d.mkdir(parents=True, exist_ok=True)
         for p in order[key][:n]:
             target = d / p.name
-            if not target.exists():
-                shutil.copyfile(p, target)
             rel[p] = target.relative_to(args.dest).as_posix()
+            if target.resolve() != p.resolve() and not target.exists():
+                jobs.append((p, target))
+
+    def copy(job):
+        p, target = job
+        tmp = target.with_name(target.name + ".part")
+        shutil.copyfile(p, tmp)
+        tmp.rename(target)
+
+    if jobs:
+        print(f"Copying {len(jobs)} files ({len(rel) - len(jobs)} already there) ...", flush=True)
+        with ThreadPoolExecutor(args.workers) as pool:
+            for k, _ in enumerate(pool.map(copy, jobs), 1):
+                if k % 500 == 0 or k == len(jobs):
+                    print(f"  {k}/{len(jobs)} copied", flush=True)
     print(f"{len(rel)} sampled images in {args.dest / 'images'}")
 
     if args.pool_only:
