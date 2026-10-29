@@ -68,6 +68,8 @@ def parse_args():
     p.add_argument("--n-test", type=int, default=1000, help="fake (and real) test images per generator")
     p.add_argument("--protocols", nargs="+", default=list(PROTOCOLS), choices=list(PROTOCOLS))
     p.add_argument("--seed", type=int, default=0)
+    p.add_argument("--splits", nargs="+", choices=["train", "val"], default=["train", "val"],
+                   help="only use these GenImage splits from --src (e.g. train when test images come from elsewhere)")
     p.add_argument("--dry-run", action="store_true", help="print what was found, copy nothing")
     p.add_argument("--pool-only", action="store_true",
                    help="only copy a random sample of whatever generators are in --src into <dest>/images "
@@ -78,6 +80,7 @@ def parse_args():
 def main():
     args = parse_args()
     found = discover(args.src)
+    found = {k: v for k, v in found.items() if k[1] in args.splits}
     print("Found (generator, split, class): count")
     for key in sorted(found):
         print(f"  {key}: {len(found[key])}")
