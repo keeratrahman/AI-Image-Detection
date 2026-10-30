@@ -43,6 +43,54 @@ def _resnet50(init):
     return _resnet(tv.resnet50, tv.ResNet50_Weights.IMAGENET1K_V1, init)
 
 
+@register_model("deit-s")
+def _deit_s(init):
+    if init not in ("in1k", "scratch"):
+        raise ValueError(f"init must be 'in1k' or 'scratch', got '{init}'")
+    import timm
+
+    return timm.create_model(
+        "deit_small_patch16_224",
+        pretrained=init == "in1k",
+        num_classes=1,
+    )
+
+
+class SmallCNN(nn.Module):
+    """Four convolutional blocks and a pooled binary classification head."""
+
+    def __init__(self):
+        super().__init__()
+        blocks = []
+        in_channels = 3
+        for out_channels in (32, 64, 128, 256):
+            blocks.extend([
+                nn.Conv2d(in_channels, out_channels, kernel_size=3, padding=1, bias=False),
+                nn.BatchNorm2d(out_channels),
+                nn.ReLU(inplace=True),
+                nn.Conv2d(out_channels, out_channels, kernel_size=3, padding=1, bias=False),
+                nn.BatchNorm2d(out_channels),
+                nn.ReLU(inplace=True),
+                nn.MaxPool2d(kernel_size=2),
+            ])
+            in_channels = out_channels
+        self.features = nn.Sequential(*blocks)
+        self.pool = nn.AdaptiveAvgPool2d(1)
+        self.classifier = nn.Linear(in_channels, 1)
+
+    def forward(self, x):
+        x = self.features(x)
+        x = self.pool(x).flatten(1)
+        return self.classifier(x)
+
+
+@register_model("cnn-small")
+def _cnn_small(init):
+    if init != "scratch":
+        raise ValueError(f"cnn-small only supports init='scratch', got '{init}'")
+    return SmallCNN()
+
+
 def build_model(name: str, init: str) -> nn.Module:
     if name not in MODEL_REGISTRY:
         raise KeyError(f"Unknown model '{name}'. Registered: {sorted(MODEL_REGISTRY)}")
