@@ -11,3 +11,4 @@ genimage_pool/
 genimage_subset/
 *.zip
 *.tar
+logs/
