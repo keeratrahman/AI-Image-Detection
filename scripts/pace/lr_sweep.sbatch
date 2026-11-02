@@ -8,6 +8,8 @@
 #SBATCH --cpus-per-task=8            # matches num_workers=8; JPEG decoding is the bottleneck
 #SBATCH --mem=32G
 #SBATCH --time=02:00:00              # a 12k-image x 10-epoch run should take well under an hour
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH --mail-user=amohammed87@gatech.edu  # If someone else want to be notified, please let me know!
 #SBATCH --output=logs/%x_%A_%a.out
 
 set -euo pipefail
