@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_deit-s_in1k_jpeg-crop_lr1e-4_s0",
+  "protocol": "A",
+  "model": "deit-s",
+  "init": "in1k",
+  "prep": "jpeg-crop",
+  "lr": 0.0001,
+  "seed": 0,
+  "best_epoch": 10,
+  "device": "mps",
+  "val": {
+    "loss": 0.02014210129249841,
+    "auc": 0.999567,
+    "acc": 0.992
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.23231183684724857,
+      "val_loss": 0.0742887809574604,
+      "val_auc": 0.996755,
+      "val_acc": 0.972
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.06347379727378727,
+      "val_loss": 0.0495922644585371,
+      "val_auc": 0.998504,
+      "val_acc": 0.9845
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.03809748966256804,
+      "val_loss": 0.05124934151768684,
+      "val_auc": 0.99871,
+      "val_acc": 0.9785
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.03314175492247198,
+      "val_loss": 0.049756732329726217,
+      "val_auc": 0.998599,
+      "val_acc": 0.9845
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.023482650230803034,
+      "val_loss": 0.027270949121564626,
+      "val_auc": 0.999461,
+      "val_acc": 0.991
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.014385180498652637,
+      "val_loss": 0.04746412941906601,
+      "val_auc": 0.999325,
+      "val_acc": 0.9845
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.00931856934171678,
+      "val_loss": 0.020615993743762374,
+      "val_auc": 0.999438,
+      "val_acc": 0.9925
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.005972352097160183,
+      "val_loss": 0.02272690372355282,
+      "val_auc": 0.999483,
+      "val_acc": 0.9905
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0031094954997789174,
+      "val_loss": 0.02009082861477509,
+      "val_auc": 0.999553,
+      "val_acc": 0.992
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0032037202495132835,
+      "val_loss": 0.02014210129249841,
+      "val_auc": 0.999567,
+      "val_acc": 0.992
+    }
+  ],
+  "test": {
+    "per_generator_auc": {}
+  },
+  "checkpoint": "runs/A_deit-s_in1k_jpeg-crop_lr1e-4_s0/best.pt",
+  "git_commit": "4118cd9e59092a69875f8f8874e540fd89455109",
+  "timestamp": "2026-11-02T22:20:52.870223+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "deit-s",
+    "init": "in1k",
+    "prep": "jpeg-crop",
+    "lr": 0.0001,
+    "seed": 0,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "../genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "../genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "runs",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_deit-s_in1k_jpeg-crop_lr1e-4_s0"
+  }
+}

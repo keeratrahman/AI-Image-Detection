@@ -4,7 +4,10 @@ __pycache__/
 *.pyc
 .venv/
 *.pt
-runs*/
+runs_*/
+runs/*/*
+!runs/*/metrics.json
+!runs/*/config.yaml
 wandb/
 genimage_dl/
 genimage_pool/
