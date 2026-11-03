@@ -1,0 +1,21 @@
+protocol: A
+model: resnet18
+init: in1k
+prep: jpeg-crop
+lr: 3.0e-05
+seed: 0
+epochs: 10
+batch_size: 64
+weight_decay: 0.01
+warmup_frac: 0.05
+amp: true
+num_workers: 8
+data:
+  name: genimage
+  train_manifest: ../genimage_subset/manifests/A_train.jsonl
+  val_manifest: ../genimage_subset/manifests/A_val.jsonl
+output_dir: runs
+wandb:
+  project: ai-image-detection
+  mode: online
+run_name: A_resnet18_in1k_jpeg-crop_lr3e-5_s0
