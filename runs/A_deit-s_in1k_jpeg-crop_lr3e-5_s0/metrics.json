@@ -712,11 +712,104 @@
       },
       "mean_auc": 0.80873825,
       "mean_acc": 0.6920625
+    },
+    "jpeg:96": {
+      "per_generator_auc": {
+        "test_adm": 0.741366,
+        "test_biggan": 0.437011,
+        "test_glide": 0.8185,
+        "test_midjourney": 0.92575,
+        "test_sdv14": 0.998711,
+        "test_sdv15": 0.996481,
+        "test_vqdm": 0.849149,
+        "test_wukong": 0.99287
+      },
+      "per_generator_acc": {
+        "test_adm": 0.5695,
+        "test_biggan": 0.4725,
+        "test_glide": 0.659,
+        "test_midjourney": 0.8195,
+        "test_sdv14": 0.9685,
+        "test_sdv15": 0.9625,
+        "test_vqdm": 0.7175,
+        "test_wukong": 0.9575
+      },
+      "per_generator_real_acc": {
+        "test_adm": 0.922,
+        "test_biggan": 0.933,
+        "test_glide": 0.928,
+        "test_midjourney": 0.928,
+        "test_sdv14": 0.939,
+        "test_sdv15": 0.928,
+        "test_vqdm": 0.935,
+        "test_wukong": 0.946
+      },
+      "per_generator_fake_acc": {
+        "test_adm": 0.217,
+        "test_biggan": 0.012,
+        "test_glide": 0.39,
+        "test_midjourney": 0.711,
+        "test_sdv14": 0.998,
+        "test_sdv15": 0.997,
+        "test_vqdm": 0.5,
+        "test_wukong": 0.969
+      },
+      "per_generator_precision": {
+        "test_adm": 0.735593220338983,
+        "test_biggan": 0.1518987341772152,
+        "test_glide": 0.8441558441558441,
+        "test_midjourney": 0.9080459770114943,
+        "test_sdv14": 0.9423984891406988,
+        "test_sdv15": 0.9326473339569691,
+        "test_vqdm": 0.8849557522123894,
+        "test_wukong": 0.9472140762463344
+      },
+      "per_generator_recall": {
+        "test_adm": 0.217,
+        "test_biggan": 0.012,
+        "test_glide": 0.39,
+        "test_midjourney": 0.711,
+        "test_sdv14": 0.998,
+        "test_sdv15": 0.997,
+        "test_vqdm": 0.5,
+        "test_wukong": 0.969
+      },
+      "per_generator_f1": {
+        "test_adm": 0.33513513513513515,
+        "test_biggan": 0.022242817423540315,
+        "test_glide": 0.533515731874145,
+        "test_midjourney": 0.7975322490185082,
+        "test_sdv14": 0.9694026226323458,
+        "test_sdv15": 0.9637506041565974,
+        "test_vqdm": 0.6389776357827476,
+        "test_wukong": 0.957983193277311
+      },
+      "per_generator_n": {
+        "test_adm": 2000,
+        "test_biggan": 2000,
+        "test_glide": 2000,
+        "test_midjourney": 2000,
+        "test_sdv14": 2000,
+        "test_sdv15": 2000,
+        "test_vqdm": 2000,
+        "test_wukong": 2000
+      },
+      "mean_auc": 0.84497975,
+      "mean_acc": 0.7658125,
+      "mean_auc_seen": 0.998711,
+      "mean_acc_seen": 0.9685,
+      "mean_auc_near": 0.9946755,
+      "mean_acc_near": 0.96,
+      "mean_auc_far": 0.7543552,
+      "mean_acc_far": 0.6476,
+      "mean_auc_held_out": 0.8230181428571429,
+      "mean_acc_held_out": 0.7368571428571429,
+      "seen_minus_held_out_auc": 0.1756928571428571
     }
   },
   "eval": {
-    "timestamp": "2026-11-03T01:57:58.813626+00:00",
-    "git_commit": "4118cd9e59092a69875f8f8874e540fd89455109",
+    "timestamp": "2026-11-03T05:21:22.902632+00:00",
+    "git_commit": "5868d4d8fa57c4a8345eec57129d7eb38b1c7294",
     "checkpoint_epoch": 6,
     "manifests": {
       "test_adm": "../genimage_subset/manifests/test_adm.jsonl",
