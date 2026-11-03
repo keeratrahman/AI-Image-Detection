@@ -1,0 +1,15 @@
+Look in the metrics.json for each of these to see results of evaluations
+A / deit-s / jpeg-crop
+  lr=0.0003   val_auc=0.9991  best_epoch=10
+  lr=0.0001   val_auc=0.9996  best_epoch=10
+  lr=3e-05    val_auc=0.9997  best_epoch=6  <-- best: runs/A_deit-s_in1k_jpeg-crop_lr3e-5_s0
+
+A / resnet18 / jpeg-crop
+  lr=0.0003   val_auc=0.9996  best_epoch=10  <-- best: runs/A_resnet18_in1k_jpeg-crop_lr3e-4_s0
+  lr=0.0001   val_auc=0.9992  best_epoch=10
+  lr=3e-05    val_auc=0.9982  best_epoch=7
+
+A / resnet50 / jpeg-crop
+  lr=0.0003   val_auc=0.9999  best_epoch=10  <-- best: runs/A_resnet50_in1k_jpeg-crop_lr3e-4_s0
+  lr=0.0001   val_auc=0.9999  best_epoch=8
+  lr=3e-05    val_auc=0.9992  best_epoch=8

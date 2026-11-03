@@ -128,11 +128,21 @@ def predict(model, loader, device):
 
 
 def score(logits, labels):
+    pred = logits > 0                      # logit 0 == probability 0.5
+    pos = labels > 0.5
+    tp = int((pred & pos).sum()); fp = int((pred & ~pos).sum())
+    fn = int((~pred & pos).sum()); tn = int((~pred & ~pos).sum())
+    nan = float("nan")
     return {
         "auc": roc_auc(labels, logits),
-        "acc": float(((logits > 0) == (labels > 0.5)).mean()),  # logit 0 == probability 0.5
+        "acc": (tp + tn) / max(len(labels), 1),
+        "real_acc": tn / (tn + fp) if tn + fp else nan,
+        "fake_acc": tp / (tp + fn) if tp + fn else nan,
+        "precision": tp / (tp + fp) if tp + fp else nan,
+        "recall": tp / (tp + fn) if tp + fn else nan,
+        "f1": 2 * tp / (2 * tp + fp + fn) if 2 * tp + fp + fn else nan,
         "n": int(len(labels)),
-        "n_fake": int((labels > 0.5).sum()),
+        "n_fake": int(pos.sum()),
     }
 
 
@@ -153,14 +163,20 @@ def mean_ignoring_nan(values):
     return float(np.mean(vals)) if vals else float("nan")
 
 
-def summarize(results):
-    return {
-        "per_generator_auc": {k: v["auc"] for k, v in results.items()},
-        "per_generator_acc": {k: v["acc"] for k, v in results.items()},
-        "per_generator_n": {k: v["n"] for k, v in results.items()},
-        "mean_auc": mean_ignoring_nan([v["auc"] for v in results.values()]),
-        "mean_acc": mean_ignoring_nan([v["acc"] for v in results.values()]),
-    }
+METRIC_KEYS = ["auc", "acc", "real_acc", "fake_acc", "precision", "recall", "f1"]
+
+
+def summarize(results, groups=None):
+    out = {f"per_generator_{k}": {g: r[k] for g, r in results.items()} for k in METRIC_KEYS}
+    out["per_generator_n"] = {g: r["n"] for g, r in results.items()}
+    out["mean_auc"] = mean_ignoring_nan([r["auc"] for r in results.values()])
+    out["mean_acc"] = mean_ignoring_nan([r["acc"] for r in results.values()])
+    for name, members in (groups or {}).items():
+        out[f"mean_auc_{name}"] = mean_ignoring_nan([results[m]["auc"] for m in members])
+        out[f"mean_acc_{name}"] = mean_ignoring_nan([results[m]["acc"] for m in members])
+    if "mean_auc_seen" in out and "mean_auc_held_out" in out:
+        out["seen_minus_held_out_auc"] = out["mean_auc_seen"] - out["mean_auc_held_out"]
+    return out
 
 
 # ---------------------------------------------------------------- io
@@ -210,6 +226,9 @@ def parse_args():
                    help="test manifests: PATH, NAME=PATH, or a folder of .jsonl files")
     p.add_argument("--robustness", nargs="*", default=[], metavar="SPEC",
                    help="perturbations to test too: jpeg:<q>, blur:<sigma>, rescale:<factor>")
+    p.add_argument("--seen", nargs="*", default=[], help="generator names seen in training (e.g. the SD v1.4 test set)")
+    p.add_argument("--near", nargs="*", default=[], help="near held-out generators (SD v1.5, Wukong)")
+    p.add_argument("--far", nargs="*", default=[], help="far held-out generators (ADM, GLIDE, VQDM, Midjourney, BigGAN)")
     p.add_argument("--batch-size", type=int, default=64)
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--device", help="cuda, mps or cpu (default: auto-detect in that order)")
@@ -221,6 +240,14 @@ def main():
     args = parse_args()
     device = pick_device(args.device)
     manifests = parse_manifests(args.manifests)
+    groups = {}
+    if args.seen: groups["seen"] = args.seen
+    if args.near: groups["near"] = args.near
+    if args.far: groups["far"] = args.far
+    if args.near or args.far: groups["held_out"] = args.near + args.far
+    unknown = {n for v in groups.values() for n in v} - set(manifests)
+    if unknown:
+        raise SystemExit(f"Unknown generator names {sorted(unknown)}. Available: {sorted(manifests)}")
     perturbations = {spec: make_perturbation(spec) for spec in args.robustness}
 
     model, cfg, ckpt = load_run(args.run_dir, device)
@@ -229,7 +256,7 @@ def main():
 
     print("Clean test:")
     clean_results = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers)
-    test = summarize(clean_results)
+    test = summarize(clean_results, groups)
     test["jpeg_aligned_at_test"] = False
     print(f"  mean auc={test['mean_auc']:.4f}  mean acc={test['mean_acc']:.4f}")
 
@@ -237,7 +264,7 @@ def main():
     for spec, pert in perturbations.items():
         print(f"Robustness {spec}:")
         res = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers, pert)
-        robustness[spec] = summarize(res)
+        robustness[spec] = summarize(res, groups)
         print(f"  mean auc={robustness[spec]['mean_auc']:.4f}  mean acc={robustness[spec]['mean_acc']:.4f}")
 
     out_path = Path(args.out) if args.out else Path(args.run_dir) / "metrics.json"
