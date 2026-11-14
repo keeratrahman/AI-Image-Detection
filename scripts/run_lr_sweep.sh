@@ -1,15 +1,17 @@
 #!/bin/bash
-# Local LR sweep. Runs configs/lr_sweep/<pattern>.yaml in order, skipping finished runs.
+# Local LR sweep. Runs $CONFIG_DIR/<pattern>.yaml in order (default configs/lr_sweep), skipping finished runs.
 #   caffeinate -i bash scripts/run_lr_sweep.sh "*resnet50*"    # one model
 #   caffeinate -i bash scripts/run_lr_sweep.sh                 # everything
+#   CONFIG_DIR=configs/final caffeinate -i bash scripts/run_lr_sweep.sh   # another config folder
 # Safe to rerun after an interruption; a failed run does not stop the rest.
 set -o pipefail
 cd "$(dirname "$0")/.."
 source .venv/bin/activate
 export PYTORCH_ENABLE_MPS_FALLBACK=1
 WANDB_MODE="${WANDB_MODE:-online}"
+CONFIG_DIR="${CONFIG_DIR:-configs/lr_sweep}"
 mkdir -p logs
-for CFG in configs/lr_sweep/${1:-*}.yaml; do
+for CFG in "$CONFIG_DIR"/${1:-*}.yaml; do
   NAME="$(basename "$CFG" .yaml)"
   RUN_DIR="$(python -c "import yaml,sys; print(yaml.safe_load(open(sys.argv[1]))['output_dir'])" "$CFG")/$NAME"
   if [ -f "$RUN_DIR/metrics.json" ]; then echo "$NAME already finished; skipping."; continue; fi
