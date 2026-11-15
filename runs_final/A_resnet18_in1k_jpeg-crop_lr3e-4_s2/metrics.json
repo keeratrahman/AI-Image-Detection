@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_resnet18_in1k_jpeg-crop_lr3e-4_s2",
+  "protocol": "A",
+  "model": "resnet18",
+  "init": "in1k",
+  "prep": "jpeg-crop",
+  "lr": 0.0003,
+  "seed": 2,
+  "best_epoch": 7,
+  "device": "mps",
+  "val": {
+    "loss": 0.022201724018901588,
+    "auc": 0.999674,
+    "acc": 0.992
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.25288740286533845,
+      "val_loss": 0.15193625557422638,
+      "val_auc": 0.991541,
+      "val_acc": 0.9395
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.12409228205999588,
+      "val_loss": 0.13193427908420563,
+      "val_auc": 0.995554,
+      "val_acc": 0.945
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.07797055894180256,
+      "val_loss": 0.13833518946170806,
+      "val_auc": 0.995465,
+      "val_acc": 0.9425
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.06526779559351265,
+      "val_loss": 0.05882720735669136,
+      "val_auc": 0.998112,
+      "val_acc": 0.9745
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.047534147787958704,
+      "val_loss": 0.03823019368946552,
+      "val_auc": 0.99905,
+      "val_acc": 0.987
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.03116913483836713,
+      "val_loss": 0.03461289245635271,
+      "val_auc": 0.998933,
+      "val_acc": 0.991
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.025004375892825784,
+      "val_loss": 0.022201724018901588,
+      "val_auc": 0.999674,
+      "val_acc": 0.992
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.013611715247750003,
+      "val_loss": 0.024505499275401233,
+      "val_auc": 0.999537,
+      "val_acc": 0.9915
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.009790563955436147,
+      "val_loss": 0.02376997755467892,
+      "val_auc": 0.99967,
+      "val_acc": 0.992
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.00847654883658892,
+      "val_loss": 0.022755939649417998,
+      "val_auc": 0.999636,
+      "val_acc": 0.9925
+    }
+  ],
+  "test": {
+    "per_generator_auc": {
+      "A_train": 0.9995134166666667,
+      "A_val": 0.998018,
+      "test_adm": 0.683037,
+      "test_biggan": 0.518035,
+      "test_glide": 0.754994,
+      "test_midjourney": 0.946485,
+      "test_sdv14": 0.997864,
+      "test_sdv15": 0.997137,
+      "test_vqdm": 0.664752,
+      "test_wukong": 0.961502
+    },
+    "per_generator_acc": {
+      "A_train": 0.9855833333333334,
+      "A_val": 0.9805,
+      "test_adm": 0.512,
+      "test_biggan": 0.497,
+      "test_glide": 0.5415,
+      "test_midjourney": 0.7595,
+      "test_sdv14": 0.9785,
+      "test_sdv15": 0.974,
+      "test_vqdm": 0.513,
+      "test_wukong": 0.8445
+    },
+    "per_generator_real_acc": {
+      "A_train": 0.9973333333333333,
+      "A_val": 0.989,
+      "test_adm": 0.989,
+      "test_biggan": 0.986,
+      "test_glide": 0.99,
+      "test_midjourney": 0.984,
+      "test_sdv14": 0.993,
+      "test_sdv15": 0.986,
+      "test_vqdm": 0.985,
+      "test_wukong": 0.983
+    },
+    "per_generator_fake_acc": {
+      "A_train": 0.9738333333333333,
+      "A_val": 0.972,
+      "test_adm": 0.035,
+      "test_biggan": 0.008,
+      "test_glide": 0.093,
+      "test_midjourney": 0.535,
+      "test_sdv14": 0.964,
+      "test_sdv15": 0.962,
+      "test_vqdm": 0.041,
+      "test_wukong": 0.706
+    },
+    "per_generator_precision": {
+      "A_train": 0.9972691585594812,
+      "A_val": 0.9888097660223805,
+      "test_adm": 0.7608695652173914,
+      "test_biggan": 0.36363636363636365,
+      "test_glide": 0.9029126213592233,
+      "test_midjourney": 0.9709618874773139,
+      "test_sdv14": 0.9927909371781668,
+      "test_sdv15": 0.985655737704918,
+      "test_vqdm": 0.7321428571428571,
+      "test_wukong": 0.9764868603042877
+    },
+    "per_generator_recall": {
+      "A_train": 0.9738333333333333,
+      "A_val": 0.972,
+      "test_adm": 0.035,
+      "test_biggan": 0.008,
+      "test_glide": 0.093,
+      "test_midjourney": 0.535,
+      "test_sdv14": 0.964,
+      "test_sdv15": 0.962,
+      "test_vqdm": 0.041,
+      "test_wukong": 0.706
+    },
+    "per_generator_f1": {
+      "A_train": 0.9854119234336791,
+      "A_val": 0.9803328290468987,
+      "test_adm": 0.06692160611854685,
+      "test_biggan": 0.015655577299412915,
+      "test_glide": 0.1686310063463282,
+      "test_midjourney": 0.6898774983881367,
+      "test_sdv14": 0.9781836631151699,
+      "test_sdv15": 0.9736842105263158,
+      "test_vqdm": 0.07765151515151515,
+      "test_wukong": 0.8195008705745792
+    },
+    "per_generator_n": {
+      "A_train": 12000,
+      "A_val": 2000,
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.8521337416666667,
+    "mean_acc": 0.7586083333333333,
+    "mean_auc_seen": 0.997864,
+    "mean_acc_seen": 0.9785,
+    "mean_auc_near": 0.9793195,
+    "mean_acc_near": 0.90925,
+    "mean_auc_far": 0.7134606,
+    "mean_acc_far": 0.5646,
+    "mean_auc_held_out": 0.7894202857142858,
+    "mean_acc_held_out": 0.6630714285714285,
+    "seen_minus_held_out_auc": 0.20844371428571418,
+    "jpeg_aligned_at_test": false
+  },
+  "checkpoint": "runs_final/A_resnet18_in1k_jpeg-crop_lr3e-4_s2/best.pt",
+  "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+  "timestamp": "2026-11-14T23:32:32.275017+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "resnet18",
+    "init": "in1k",
+    "prep": "jpeg-crop",
+    "lr": 0.0003,
+    "seed": 2,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "../genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "../genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "runs_final",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_resnet18_in1k_jpeg-crop_lr3e-4_s2"
+  },
+  "eval": {
+    "timestamp": "2026-11-15T01:25:16.528779+00:00",
+    "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+    "checkpoint_epoch": 7,
+    "manifests": {
+      "A_train": "../genimage_subset/manifests/A_train.jsonl",
+      "A_val": "../genimage_subset/manifests/A_val.jsonl",
+      "test_adm": "../genimage_subset/manifests/test_adm.jsonl",
+      "test_biggan": "../genimage_subset/manifests/test_biggan.jsonl",
+      "test_glide": "../genimage_subset/manifests/test_glide.jsonl",
+      "test_midjourney": "../genimage_subset/manifests/test_midjourney.jsonl",
+      "test_sdv14": "../genimage_subset/manifests/test_sdv14.jsonl",
+      "test_sdv15": "../genimage_subset/manifests/test_sdv15.jsonl",
+      "test_vqdm": "../genimage_subset/manifests/test_vqdm.jsonl",
+      "test_wukong": "../genimage_subset/manifests/test_wukong.jsonl"
+    },
+    "device": "mps"
+  }
+}

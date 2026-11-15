@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_deit-s_in1k_jpeg-crop_lr3e-5_s2",
+  "protocol": "A",
+  "model": "deit-s",
+  "init": "in1k",
+  "prep": "jpeg-crop",
+  "lr": 3e-05,
+  "seed": 2,
+  "best_epoch": 10,
+  "device": "mps",
+  "val": {
+    "loss": 0.019254382375627755,
+    "auc": 0.999848,
+    "acc": 0.9935
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.31433715344092905,
+      "val_loss": 0.07416983085870743,
+      "val_auc": 0.997308,
+      "val_acc": 0.9735
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.04435842002139372,
+      "val_loss": 0.033726253628730773,
+      "val_auc": 0.999171,
+      "val_acc": 0.99
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.029247949636954675,
+      "val_loss": 0.041033515997231006,
+      "val_auc": 0.999529,
+      "val_acc": 0.9845
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.02046173806787832,
+      "val_loss": 0.02514243807271123,
+      "val_auc": 0.999616,
+      "val_acc": 0.993
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.012222810004050918,
+      "val_loss": 0.024781522573903203,
+      "val_auc": 0.999686,
+      "val_acc": 0.992
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.009302015047001198,
+      "val_loss": 0.0247120448211208,
+      "val_auc": 0.999684,
+      "val_acc": 0.993
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.005496815256158109,
+      "val_loss": 0.025592839289456607,
+      "val_auc": 0.999807,
+      "val_acc": 0.993
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.006650994907981183,
+      "val_loss": 0.01851228494569659,
+      "val_auc": 0.999816,
+      "val_acc": 0.9945
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0034122500399919476,
+      "val_loss": 0.018767731954343617,
+      "val_auc": 0.999847,
+      "val_acc": 0.9935
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.003062296730035388,
+      "val_loss": 0.019254382375627755,
+      "val_auc": 0.999848,
+      "val_acc": 0.9935
+    }
+  ],
+  "test": {
+    "per_generator_auc": {
+      "A_train": 0.9997499166666667,
+      "A_val": 0.99798,
+      "test_adm": 0.672691,
+      "test_biggan": 0.710289,
+      "test_glide": 0.852435,
+      "test_midjourney": 0.952306,
+      "test_sdv14": 0.998331,
+      "test_sdv15": 0.997832,
+      "test_vqdm": 0.705271,
+      "test_wukong": 0.976223
+    },
+    "per_generator_acc": {
+      "A_train": 0.9914166666666666,
+      "A_val": 0.982,
+      "test_adm": 0.5105,
+      "test_biggan": 0.4955,
+      "test_glide": 0.5475,
+      "test_midjourney": 0.7535,
+      "test_sdv14": 0.9835,
+      "test_sdv15": 0.9845,
+      "test_vqdm": 0.552,
+      "test_wukong": 0.8745
+    },
+    "per_generator_real_acc": {
+      "A_train": 0.9985,
+      "A_val": 0.989,
+      "test_adm": 0.984,
+      "test_biggan": 0.99,
+      "test_glide": 0.99,
+      "test_midjourney": 0.985,
+      "test_sdv14": 0.989,
+      "test_sdv15": 0.995,
+      "test_vqdm": 0.993,
+      "test_wukong": 0.989
+    },
+    "per_generator_fake_acc": {
+      "A_train": 0.9843333333333333,
+      "A_val": 0.975,
+      "test_adm": 0.037,
+      "test_biggan": 0.001,
+      "test_glide": 0.105,
+      "test_midjourney": 0.522,
+      "test_sdv14": 0.978,
+      "test_sdv15": 0.974,
+      "test_vqdm": 0.111,
+      "test_wukong": 0.76
+    },
+    "per_generator_precision": {
+      "A_train": 0.9984784446322907,
+      "A_val": 0.9888438133874239,
+      "test_adm": 0.6981132075471698,
+      "test_biggan": 0.09090909090909091,
+      "test_glide": 0.9130434782608695,
+      "test_midjourney": 0.9720670391061452,
+      "test_sdv14": 0.9888776541961577,
+      "test_sdv15": 0.9948927477017364,
+      "test_vqdm": 0.940677966101695,
+      "test_wukong": 0.9857328145265889
+    },
+    "per_generator_recall": {
+      "A_train": 0.9843333333333333,
+      "A_val": 0.975,
+      "test_adm": 0.037,
+      "test_biggan": 0.001,
+      "test_glide": 0.105,
+      "test_midjourney": 0.522,
+      "test_sdv14": 0.978,
+      "test_sdv15": 0.974,
+      "test_vqdm": 0.111,
+      "test_wukong": 0.76
+    },
+    "per_generator_f1": {
+      "A_train": 0.9913554343264792,
+      "A_val": 0.9818731117824774,
+      "test_adm": 0.07027540360873694,
+      "test_biggan": 0.0019782393669634025,
+      "test_glide": 0.18834080717488788,
+      "test_midjourney": 0.6792452830188679,
+      "test_sdv14": 0.9834087481146304,
+      "test_sdv15": 0.9843355229914098,
+      "test_vqdm": 0.19856887298747763,
+      "test_wukong": 0.8582721626199887
+    },
+    "per_generator_n": {
+      "A_train": 12000,
+      "A_val": 2000,
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.8863107916666666,
+    "mean_acc": 0.7674916666666667,
+    "mean_auc_seen": 0.998331,
+    "mean_acc_seen": 0.9835,
+    "mean_auc_near": 0.9870275,
+    "mean_acc_near": 0.9295,
+    "mean_auc_far": 0.7785984,
+    "mean_acc_far": 0.5717999999999999,
+    "mean_auc_held_out": 0.8381495714285714,
+    "mean_acc_held_out": 0.674,
+    "seen_minus_held_out_auc": 0.16018142857142859,
+    "jpeg_aligned_at_test": false
+  },
+  "checkpoint": "runs_final/A_deit-s_in1k_jpeg-crop_lr3e-5_s2/best.pt",
+  "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+  "timestamp": "2026-11-14T23:06:22.652413+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "deit-s",
+    "init": "in1k",
+    "prep": "jpeg-crop",
+    "lr": 3e-05,
+    "seed": 2,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "../genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "../genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "runs_final",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_deit-s_in1k_jpeg-crop_lr3e-5_s2"
+  },
+  "eval": {
+    "timestamp": "2026-11-15T01:12:22.806887+00:00",
+    "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+    "checkpoint_epoch": 10,
+    "manifests": {
+      "A_train": "../genimage_subset/manifests/A_train.jsonl",
+      "A_val": "../genimage_subset/manifests/A_val.jsonl",
+      "test_adm": "../genimage_subset/manifests/test_adm.jsonl",
+      "test_biggan": "../genimage_subset/manifests/test_biggan.jsonl",
+      "test_glide": "../genimage_subset/manifests/test_glide.jsonl",
+      "test_midjourney": "../genimage_subset/manifests/test_midjourney.jsonl",
+      "test_sdv14": "../genimage_subset/manifests/test_sdv14.jsonl",
+      "test_sdv15": "../genimage_subset/manifests/test_sdv15.jsonl",
+      "test_vqdm": "../genimage_subset/manifests/test_vqdm.jsonl",
+      "test_wukong": "../genimage_subset/manifests/test_wukong.jsonl"
+    },
+    "device": "mps"
+  }
+}

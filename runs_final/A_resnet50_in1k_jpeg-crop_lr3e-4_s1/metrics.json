@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_resnet50_in1k_jpeg-crop_lr3e-4_s1",
+  "protocol": "A",
+  "model": "resnet50",
+  "init": "in1k",
+  "prep": "jpeg-crop",
+  "lr": 0.0003,
+  "seed": 1,
+  "best_epoch": 10,
+  "device": "mps",
+  "val": {
+    "loss": 0.016770237535238267,
+    "auc": 0.999795,
+    "acc": 0.9955
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.22547599474057795,
+      "val_loss": 0.1506871726512909,
+      "val_auc": 0.988511,
+      "val_acc": 0.948
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.1014937515256,
+      "val_loss": 0.07705644160509109,
+      "val_auc": 0.997241,
+      "val_acc": 0.9715
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.07993973800065843,
+      "val_loss": 0.07563686031103134,
+      "val_auc": 0.996246,
+      "val_acc": 0.9725
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05651734394200624,
+      "val_loss": 0.1592402839958668,
+      "val_auc": 0.99578,
+      "val_acc": 0.9505
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.04409932995334586,
+      "val_loss": 0.0530046821385622,
+      "val_auc": 0.998549,
+      "val_acc": 0.981
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.027813311871689034,
+      "val_loss": 0.032894172549247744,
+      "val_auc": 0.999568,
+      "val_acc": 0.9895
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.01889849373825482,
+      "val_loss": 0.022002225747331978,
+      "val_auc": 0.999651,
+      "val_acc": 0.9945
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.010160196683199,
+      "val_loss": 0.02131049175001681,
+      "val_auc": 0.999676,
+      "val_acc": 0.9945
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.006750659302688194,
+      "val_loss": 0.015146461879834533,
+      "val_auc": 0.999788,
+      "val_acc": 0.996
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.006103181105494912,
+      "val_loss": 0.016770237535238267,
+      "val_auc": 0.999795,
+      "val_acc": 0.9955
+    }
+  ],
+  "test": {
+    "per_generator_auc": {
+      "A_train": 0.9997312777777778,
+      "A_val": 0.998364,
+      "test_adm": 0.742032,
+      "test_biggan": 0.439288,
+      "test_glide": 0.789974,
+      "test_midjourney": 0.944917,
+      "test_sdv14": 0.998873,
+      "test_sdv15": 0.998312,
+      "test_vqdm": 0.718411,
+      "test_wukong": 0.969559
+    },
+    "per_generator_acc": {
+      "A_train": 0.9866666666666667,
+      "A_val": 0.98,
+      "test_adm": 0.5145,
+      "test_biggan": 0.498,
+      "test_glide": 0.53,
+      "test_midjourney": 0.7155,
+      "test_sdv14": 0.9845,
+      "test_sdv15": 0.979,
+      "test_vqdm": 0.519,
+      "test_wukong": 0.8515
+    },
+    "per_generator_real_acc": {
+      "A_train": 0.9991666666666666,
+      "A_val": 0.992,
+      "test_adm": 0.994,
+      "test_biggan": 0.991,
+      "test_glide": 0.993,
+      "test_midjourney": 0.988,
+      "test_sdv14": 0.996,
+      "test_sdv15": 0.991,
+      "test_vqdm": 0.989,
+      "test_wukong": 0.993
+    },
+    "per_generator_fake_acc": {
+      "A_train": 0.9741666666666666,
+      "A_val": 0.968,
+      "test_adm": 0.035,
+      "test_biggan": 0.005,
+      "test_glide": 0.067,
+      "test_midjourney": 0.443,
+      "test_sdv14": 0.973,
+      "test_sdv15": 0.967,
+      "test_vqdm": 0.049,
+      "test_wukong": 0.71
+    },
+    "per_generator_precision": {
+      "A_train": 0.9991452991452991,
+      "A_val": 0.9918032786885246,
+      "test_adm": 0.8536585365853658,
+      "test_biggan": 0.35714285714285715,
+      "test_glide": 0.9054054054054054,
+      "test_midjourney": 0.9736263736263736,
+      "test_sdv14": 0.9959058341862845,
+      "test_sdv15": 0.9907786885245902,
+      "test_vqdm": 0.8166666666666667,
+      "test_wukong": 0.9902370990237099
+    },
+    "per_generator_recall": {
+      "A_train": 0.9741666666666666,
+      "A_val": 0.968,
+      "test_adm": 0.035,
+      "test_biggan": 0.005,
+      "test_glide": 0.067,
+      "test_midjourney": 0.443,
+      "test_sdv14": 0.973,
+      "test_sdv15": 0.967,
+      "test_vqdm": 0.049,
+      "test_wukong": 0.71
+    },
+    "per_generator_f1": {
+      "A_train": 0.9864978902953586,
+      "A_val": 0.979757085020243,
+      "test_adm": 0.06724303554274735,
+      "test_biggan": 0.009861932938856016,
+      "test_glide": 0.12476722532588454,
+      "test_midjourney": 0.60893470790378,
+      "test_sdv14": 0.9843196762771876,
+      "test_sdv15": 0.978744939271255,
+      "test_vqdm": 0.09245283018867924,
+      "test_wukong": 0.8270238788584741
+    },
+    "per_generator_n": {
+      "A_train": 12000,
+      "A_val": 2000,
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.8599461277777778,
+    "mean_acc": 0.7558666666666667,
+    "mean_auc_seen": 0.998873,
+    "mean_acc_seen": 0.9845,
+    "mean_auc_near": 0.9839355,
+    "mean_acc_near": 0.91525,
+    "mean_auc_far": 0.7269243999999999,
+    "mean_acc_far": 0.5554,
+    "mean_auc_held_out": 0.8003561428571428,
+    "mean_acc_held_out": 0.6582142857142859,
+    "seen_minus_held_out_auc": 0.19851685714285716,
+    "jpeg_aligned_at_test": false
+  },
+  "checkpoint": "runs_final/A_resnet50_in1k_jpeg-crop_lr3e-4_s1/best.pt",
+  "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+  "timestamp": "2026-11-15T00:15:08.024896+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "resnet50",
+    "init": "in1k",
+    "prep": "jpeg-crop",
+    "lr": 0.0003,
+    "seed": 1,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "../genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "../genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "runs_final",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_resnet50_in1k_jpeg-crop_lr3e-4_s1"
+  },
+  "eval": {
+    "timestamp": "2026-11-15T01:35:32.680367+00:00",
+    "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+    "checkpoint_epoch": 10,
+    "manifests": {
+      "A_train": "../genimage_subset/manifests/A_train.jsonl",
+      "A_val": "../genimage_subset/manifests/A_val.jsonl",
+      "test_adm": "../genimage_subset/manifests/test_adm.jsonl",
+      "test_biggan": "../genimage_subset/manifests/test_biggan.jsonl",
+      "test_glide": "../genimage_subset/manifests/test_glide.jsonl",
+      "test_midjourney": "../genimage_subset/manifests/test_midjourney.jsonl",
+      "test_sdv14": "../genimage_subset/manifests/test_sdv14.jsonl",
+      "test_sdv15": "../genimage_subset/manifests/test_sdv15.jsonl",
+      "test_vqdm": "../genimage_subset/manifests/test_vqdm.jsonl",
+      "test_wukong": "../genimage_subset/manifests/test_wukong.jsonl"
+    },
+    "device": "mps"
+  }
+}
