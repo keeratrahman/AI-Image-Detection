@@ -1,0 +1,245 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_resnet50_in1k_jpeg-crop_lr3e-4_s2",
+  "protocol": "A",
+  "model": "resnet50",
+  "init": "in1k",
+  "prep": "jpeg-crop",
+  "lr": 0.0003,
+  "seed": 2,
+  "best_epoch": 10,
+  "device": "mps",
+  "val": {
+    "loss": 0.012895887776277959,
+    "auc": 0.999842,
+    "acc": 0.9965
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2215622572457408,
+      "val_loss": 0.20463637781143187,
+      "val_auc": 0.988794,
+      "val_acc": 0.9365
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.10408663447886546,
+      "val_loss": 0.10778071284294129,
+      "val_auc": 0.99629,
+      "val_acc": 0.9645
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.06924237446102469,
+      "val_loss": 0.08264022952318191,
+      "val_auc": 0.997118,
+      "val_acc": 0.9665
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.05721122478408849,
+      "val_loss": 0.05122652633488178,
+      "val_auc": 0.998584,
+      "val_acc": 0.979
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.04478211609029117,
+      "val_loss": 0.033335541382431985,
+      "val_auc": 0.999349,
+      "val_acc": 0.9865
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.025007887314482127,
+      "val_loss": 0.02827623639255762,
+      "val_auc": 0.999583,
+      "val_acc": 0.99
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.0193147871039128,
+      "val_loss": 0.019628513241186737,
+      "val_auc": 0.999737,
+      "val_acc": 0.9935
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.008902690876141454,
+      "val_loss": 0.013711034431122244,
+      "val_auc": 0.999823,
+      "val_acc": 0.997
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.00779958728055456,
+      "val_loss": 0.014976181831210852,
+      "val_auc": 0.999833,
+      "val_acc": 0.9955
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.005816734659217514,
+      "val_loss": 0.012895887776277959,
+      "val_auc": 0.999842,
+      "val_acc": 0.9965
+    }
+  ],
+  "test": {
+    "per_generator_auc": {
+      "A_train": 0.9997433055555556,
+      "A_val": 0.998881,
+      "test_adm": 0.735006,
+      "test_biggan": 0.425572,
+      "test_glide": 0.785062,
+      "test_midjourney": 0.951353,
+      "test_sdv14": 0.998999,
+      "test_sdv15": 0.998256,
+      "test_vqdm": 0.747708,
+      "test_wukong": 0.968752
+    },
+    "per_generator_acc": {
+      "A_train": 0.9878333333333333,
+      "A_val": 0.9835,
+      "test_adm": 0.5125,
+      "test_biggan": 0.502,
+      "test_glide": 0.541,
+      "test_midjourney": 0.732,
+      "test_sdv14": 0.9835,
+      "test_sdv15": 0.981,
+      "test_vqdm": 0.52,
+      "test_wukong": 0.8555
+    },
+    "per_generator_real_acc": {
+      "A_train": 0.9988333333333334,
+      "A_val": 0.993,
+      "test_adm": 0.993,
+      "test_biggan": 0.992,
+      "test_glide": 0.997,
+      "test_midjourney": 0.99,
+      "test_sdv14": 0.996,
+      "test_sdv15": 0.989,
+      "test_vqdm": 0.988,
+      "test_wukong": 0.989
+    },
+    "per_generator_fake_acc": {
+      "A_train": 0.9768333333333333,
+      "A_val": 0.974,
+      "test_adm": 0.032,
+      "test_biggan": 0.012,
+      "test_glide": 0.085,
+      "test_midjourney": 0.474,
+      "test_sdv14": 0.971,
+      "test_sdv15": 0.973,
+      "test_vqdm": 0.052,
+      "test_wukong": 0.722
+    },
+    "per_generator_precision": {
+      "A_train": 0.9988070892978869,
+      "A_val": 0.9928644240570846,
+      "test_adm": 0.8205128205128205,
+      "test_biggan": 0.6,
+      "test_glide": 0.9659090909090909,
+      "test_midjourney": 0.9793388429752066,
+      "test_sdv14": 0.9958974358974358,
+      "test_sdv15": 0.9888211382113821,
+      "test_vqdm": 0.8125,
+      "test_wukong": 0.984993178717599
+    },
+    "per_generator_recall": {
+      "A_train": 0.9768333333333333,
+      "A_val": 0.974,
+      "test_adm": 0.032,
+      "test_biggan": 0.012,
+      "test_glide": 0.085,
+      "test_midjourney": 0.474,
+      "test_sdv14": 0.971,
+      "test_sdv15": 0.973,
+      "test_vqdm": 0.052,
+      "test_wukong": 0.722
+    },
+    "per_generator_f1": {
+      "A_train": 0.9876980114593866,
+      "A_val": 0.98334174659263,
+      "test_adm": 0.061597690086621755,
+      "test_biggan": 0.023529411764705882,
+      "test_glide": 0.15625,
+      "test_midjourney": 0.6388140161725068,
+      "test_sdv14": 0.9832911392405064,
+      "test_sdv15": 0.9808467741935484,
+      "test_vqdm": 0.09774436090225563,
+      "test_wukong": 0.8332371609924986
+    },
+    "per_generator_n": {
+      "A_train": 12000,
+      "A_val": 2000,
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.8609332305555556,
+    "mean_acc": 0.7598833333333335,
+    "mean_auc_seen": 0.998999,
+    "mean_acc_seen": 0.9835,
+    "mean_auc_near": 0.9835039999999999,
+    "mean_acc_near": 0.91825,
+    "mean_auc_far": 0.7289402,
+    "mean_acc_far": 0.5615,
+    "mean_auc_held_out": 0.8016727142857143,
+    "mean_acc_held_out": 0.6634285714285715,
+    "seen_minus_held_out_auc": 0.19732628571428568,
+    "jpeg_aligned_at_test": false
+  },
+  "checkpoint": "runs_final/A_resnet50_in1k_jpeg-crop_lr3e-4_s2/best.pt",
+  "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+  "timestamp": "2026-11-15T00:36:40.011489+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "resnet50",
+    "init": "in1k",
+    "prep": "jpeg-crop",
+    "lr": 0.0003,
+    "seed": 2,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "../genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "../genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "runs_final",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_resnet50_in1k_jpeg-crop_lr3e-4_s2"
+  },
+  "eval": {
+    "timestamp": "2026-11-15T01:40:39.739984+00:00",
+    "git_commit": "ab966978189c36987475640c5e57a875497875cf",
+    "checkpoint_epoch": 10,
+    "manifests": {
+      "A_train": "../genimage_subset/manifests/A_train.jsonl",
+      "A_val": "../genimage_subset/manifests/A_val.jsonl",
+      "test_adm": "../genimage_subset/manifests/test_adm.jsonl",
+      "test_biggan": "../genimage_subset/manifests/test_biggan.jsonl",
+      "test_glide": "../genimage_subset/manifests/test_glide.jsonl",
+      "test_midjourney": "../genimage_subset/manifests/test_midjourney.jsonl",
+      "test_sdv14": "../genimage_subset/manifests/test_sdv14.jsonl",
+      "test_sdv15": "../genimage_subset/manifests/test_sdv15.jsonl",
+      "test_vqdm": "../genimage_subset/manifests/test_vqdm.jsonl",
+      "test_wukong": "../genimage_subset/manifests/test_wukong.jsonl"
+    },
+    "device": "mps"
+  }
+}

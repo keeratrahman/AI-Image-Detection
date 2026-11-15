@@ -5,6 +5,11 @@ __pycache__/
 .venv/
 *.pt
 runs_*/
+# final runs: keep metrics.json and config.yaml (like runs/), ignore checkpoints, preds, wandb
+!runs_final/
+runs_final/*/*
+!runs_final/*/metrics.json
+!runs_final/*/config.yaml
 runs/*/*
 !runs/*/metrics.json
 !runs/*/config.yaml

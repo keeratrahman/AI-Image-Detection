@@ -23,6 +23,10 @@ Output fields (every report number should come from these)
   robustness.<perturbation>.per_generator_auc / per_generator_acc / mean_auc / mean_acc
   eval.{timestamp, git_commit, checkpoint_epoch, manifests}
 
+With --save-preds, per-image predictions also go to <run-dir>/preds/<condition>/<generator>.npz
+(logits, labels, manifest, paths), where <condition> is clean or the perturbation spec with ':'
+replaced by '_' (jpeg:75 -> jpeg_75). scripts/bootstrap_ci.py reads these.
+
 GenImage's published 72.1% is an accuracy, so compare mean_acc (not mean_auc) against it.
 """
 import argparse
@@ -146,13 +150,37 @@ def score(logits, labels):
     }
 
 
-def evaluate_generators(model, prep, manifests, device, batch_size, num_workers, perturbation=None):
+def condition_name(spec=None):
+    """Folder name under preds/: 'clean', or the perturbation spec with ':' -> '_' (jpeg:75 -> jpeg_75)."""
+    return "clean" if spec is None else spec.replace(":", "_")
+
+
+def save_preds(preds_dir, condition, name, logits, labels, manifest, paths):
+    """Per-image predictions for the paired bootstrap: <run-dir>/preds/<condition>/<generator>.npz.
+
+    Test loaders use shuffle=False, so row i is the same image in every run; `paths` lets
+    scripts/bootstrap_ci.py check that instead of assuming it.
+    """
+    out = Path(preds_dir) / condition
+    out.mkdir(parents=True, exist_ok=True)
+    np.savez(out / f"{name}.npz", logits=logits, labels=labels,
+             manifest=np.array(str(manifest)), paths=np.array(paths))
+
+
+def evaluate_generators(model, prep, manifests, device, batch_size, num_workers, perturbation=None,
+                        preds_dir=None, condition="clean"):
     results = {}
     for name, path in manifests.items():
         ds = GenImageDataset(path, prep=prep, train=False, jpeg_aligned=False, extra_transform=perturbation)
         loader = DataLoader(ds, batch_size=batch_size, shuffle=False, num_workers=num_workers,
                             pin_memory=device.type == "cuda")
-        results[name] = score(*predict(model, loader, device))
+        logits, labels = predict(model, loader, device)
+        results[name] = score(logits, labels)
+        if preds_dir is not None:
+            # paths relative to the dataset root (as in the manifest), so they match across machines
+            root = Path(path).resolve().parent.parent
+            rel = [os.path.relpath(r["path"], root) for r in ds.records]
+            save_preds(preds_dir, condition, name, logits, labels, path, rel)
         r = results[name]
         print(f"  {name:<14} auc={r['auc']:.4f} acc={r['acc']:.4f}  (n={r['n']}, fake={r['n_fake']})", flush=True)
     return results
@@ -229,6 +257,8 @@ def parse_args():
     p.add_argument("--seen", nargs="*", default=[], help="generator names seen in training (e.g. the SD v1.4 test set)")
     p.add_argument("--near", nargs="*", default=[], help="near held-out generators (SD v1.5, Wukong)")
     p.add_argument("--far", nargs="*", default=[], help="far held-out generators (ADM, GLIDE, VQDM, Midjourney, BigGAN)")
+    p.add_argument("--save-preds", action="store_true",
+                   help="also save per-image logits/labels to <run-dir>/preds/<condition>/<generator>.npz")
     p.add_argument("--batch-size", type=int, default=64)
     p.add_argument("--num-workers", type=int, default=4)
     p.add_argument("--device", help="cuda, mps or cpu (default: auto-detect in that order)")
@@ -254,8 +284,11 @@ def main():
     run_name = cfg.get("run_name", Path(args.run_dir).name)
     print(f"[{run_name}] device={device} prep={cfg['prep']} generators={list(manifests)}")
 
+    preds_dir = Path(args.run_dir) / "preds" if args.save_preds else None
+
     print("Clean test:")
-    clean_results = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers)
+    clean_results = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers,
+                                        preds_dir=preds_dir, condition=condition_name())
     test = summarize(clean_results, groups)
     test["jpeg_aligned_at_test"] = False
     print(f"  mean auc={test['mean_auc']:.4f}  mean acc={test['mean_acc']:.4f}")
@@ -263,7 +296,8 @@ def main():
     robustness = {}
     for spec, pert in perturbations.items():
         print(f"Robustness {spec}:")
-        res = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers, pert)
+        res = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers, pert,
+                                  preds_dir=preds_dir, condition=condition_name(spec))
         robustness[spec] = summarize(res, groups)
         print(f"  mean auc={robustness[spec]['mean_auc']:.4f}  mean acc={robustness[spec]['mean_acc']:.4f}")
 
