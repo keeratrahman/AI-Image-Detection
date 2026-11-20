@@ -21,7 +21,8 @@ from PIL import Image, ImageFilter
 from torchvision import transforms as T
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from aidet.genimage import IMAGE_SIZE, TEST_GENERATORS, MinShortSide, jpeg_reencode, read_manifest  # noqa: E402
+from aidet.genimage import IMAGE_SIZE, MinShortSide, jpeg_reencode, read_manifest  # noqa: E402
+from aidet.naming import TEST_GENERATORS  # noqa: E402
 
 EVAL_VIEW = T.Compose([MinShortSide(IMAGE_SIZE), T.CenterCrop(IMAGE_SIZE)])
 CPUS = len(os.sched_getaffinity(0)) if hasattr(os, "sched_getaffinity") else os.cpu_count()  # Slurm allocation, not the whole node
