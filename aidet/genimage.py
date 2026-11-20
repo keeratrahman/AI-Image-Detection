@@ -15,6 +15,12 @@ JPEG_QUALITY = 96  # most common quality factor in ImageNet's real JPEGs
 IMAGENET_MEAN = (0.485, 0.456, 0.406)
 IMAGENET_STD = (0.229, 0.224, 0.225)
 
+# test manifest stem -> plot label, in report order: seen, near, far
+TEST_GENERATORS = {
+    "test_sdv14": "SD1.4", "test_sdv15": "SD1.5", "test_wukong": "Wukong", "test_adm": "ADM",
+    "test_glide": "GLIDE", "test_vqdm": "VQDM", "test_midjourney": "MJ", "test_biggan": "BigGAN",
+}
+
 
 def read_manifest(manifest_path):
     manifest_path = Path(manifest_path)
