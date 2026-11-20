@@ -20,3 +20,4 @@ genimage_subset/
 *.zip
 *.tar
 logs/
+results/figures/*.npz
