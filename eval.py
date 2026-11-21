@@ -23,9 +23,13 @@ Output fields (every report number should come from these)
   robustness.<perturbation>.per_generator_auc / per_generator_acc / mean_auc / mean_acc
   eval.{timestamp, git_commit, checkpoint_epoch, manifests}
 
+With --aligned-test, the test also runs with fakes re-encoded as JPEG q96 (as in jpeg-* training), so
+real and fake are both single-compressed JPEGs and the "PNG = fake" shortcut is gone. Results go to
+aligned_test (same fields as test). --skip-clean skips the clean test and leaves test untouched.
+
 With --save-preds, per-image predictions also go to <run-dir>/preds/<condition>/<generator>.npz
-(logits, labels, manifest, paths), where <condition> is clean or the perturbation spec with ':'
-replaced by '_' (jpeg:75 -> jpeg_75). scripts/bootstrap_ci.py reads these.
+(logits, labels, manifest, paths), where <condition> is clean, aligned, or the perturbation spec with
+':' replaced by '_' (jpeg:75 -> jpeg_75). scripts/bootstrap_ci.py reads these.
 
 GenImage's published 72.1% is an accuracy, so compare mean_acc (not mean_auc) against it.
 """
@@ -168,10 +172,10 @@ def save_preds(preds_dir, condition, name, logits, labels, manifest, paths):
 
 
 def evaluate_generators(model, prep, manifests, device, batch_size, num_workers, perturbation=None,
-                        preds_dir=None, condition="clean"):
+                        preds_dir=None, condition="clean", jpeg_aligned=False):
     results = {}
     for name, path in manifests.items():
-        ds = GenImageDataset(path, prep=prep, train=False, jpeg_aligned=False, extra_transform=perturbation)
+        ds = GenImageDataset(path, prep=prep, train=False, jpeg_aligned=jpeg_aligned, extra_transform=perturbation)
         loader = DataLoader(ds, batch_size=batch_size, shuffle=False, num_workers=num_workers,
                             pin_memory=device.type == "cuda")
         logits, labels = predict(model, loader, device)
@@ -257,6 +261,9 @@ def parse_args():
     p.add_argument("--seen", nargs="*", default=[], help="generator names seen in training (e.g. the SD v1.4 test set)")
     p.add_argument("--near", nargs="*", default=[], help="near held-out generators (SD v1.5, Wukong)")
     p.add_argument("--far", nargs="*", default=[], help="far held-out generators (ADM, GLIDE, VQDM, Midjourney, BigGAN)")
+    p.add_argument("--aligned-test", action="store_true",
+                   help="also test with fakes re-encoded as JPEG q96 (format-matched); saved as aligned_test")
+    p.add_argument("--skip-clean", action="store_true", help="skip the clean test (keeps the existing test results)")
     p.add_argument("--save-preds", action="store_true",
                    help="also save per-image logits/labels to <run-dir>/preds/<condition>/<generator>.npz")
     p.add_argument("--batch-size", type=int, default=64)
@@ -279,31 +286,43 @@ def main():
     if unknown:
         raise SystemExit(f"Unknown generator names {sorted(unknown)}. Available: {sorted(manifests)}")
     perturbations = {spec: make_perturbation(spec) for spec in args.robustness}
+    if args.skip_clean and not (args.aligned_test or perturbations):
+        raise SystemExit("--skip-clean with nothing else to run; add --aligned-test or --robustness")
 
     model, cfg, ckpt = load_run(args.run_dir, device)
     run_name = cfg.get("run_name", Path(args.run_dir).name)
     print(f"[{run_name}] device={device} prep={cfg['prep']} generators={list(manifests)}")
 
     preds_dir = Path(args.run_dir) / "preds" if args.save_preds else None
+    evaluate = lambda **kw: evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size,
+                                                args.num_workers, preds_dir=preds_dir, **kw)
 
-    print("Clean test:")
-    clean_results = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers,
-                                        preds_dir=preds_dir, condition=condition_name())
-    test = summarize(clean_results, groups)
-    test["jpeg_aligned_at_test"] = False
-    print(f"  mean auc={test['mean_auc']:.4f}  mean acc={test['mean_acc']:.4f}")
+    test = None
+    if not args.skip_clean:
+        print("Clean test:")
+        test = summarize(evaluate(condition=condition_name()), groups)
+        test["jpeg_aligned_at_test"] = False
+        print(f"  mean auc={test['mean_auc']:.4f}  mean acc={test['mean_acc']:.4f}")
+
+    aligned = None
+    if args.aligned_test:
+        print("Aligned test (fakes re-encoded as JPEG q96):")
+        aligned = summarize(evaluate(condition="aligned", jpeg_aligned=True), groups)
+        aligned["jpeg_aligned_at_test"] = True
+        print(f"  mean auc={aligned['mean_auc']:.4f}  mean acc={aligned['mean_acc']:.4f}")
 
     robustness = {}
     for spec, pert in perturbations.items():
         print(f"Robustness {spec}:")
-        res = evaluate_generators(model, cfg["prep"], manifests, device, args.batch_size, args.num_workers, pert,
-                                  preds_dir=preds_dir, condition=condition_name(spec))
-        robustness[spec] = summarize(res, groups)
+        robustness[spec] = summarize(evaluate(perturbation=pert, condition=condition_name(spec)), groups)
         print(f"  mean auc={robustness[spec]['mean_auc']:.4f}  mean acc={robustness[spec]['mean_acc']:.4f}")
 
     out_path = Path(args.out) if args.out else Path(args.run_dir) / "metrics.json"
     metrics = json.load(open(out_path)) if out_path.exists() else {"run_name": run_name}
-    metrics["test"] = test
+    if test is not None:
+        metrics["test"] = test
+    if aligned is not None:
+        metrics["aligned_test"] = aligned
     if robustness:  # keep earlier perturbations from other invocations
         metrics.setdefault("robustness", {}).update(robustness)
     metrics["eval"] = {
