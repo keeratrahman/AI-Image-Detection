@@ -4,7 +4,7 @@
 #     sbatch --array=0-N scripts/pace/lr_sweep.sbatch   (setup_pace.sh prints the exact N)
 # Rerun a single config:  sbatch --array=3 scripts/pace/lr_sweep.sbatch (replace 3 with whatever corresponding config file you want.)
 #SBATCH --job-name=aidet-lr-sweep
-#SBATCH --gres=gpu:H100:1
+#SBATCH --gres=gpu:A100:1
 #SBATCH --cpus-per-task=8            # matches num_workers=8; JPEG decoding is the bottleneck
 #SBATCH --mem=32G
 #SBATCH --time=02:00:00              # a 12k-image x 10-epoch run should take well under an hour
