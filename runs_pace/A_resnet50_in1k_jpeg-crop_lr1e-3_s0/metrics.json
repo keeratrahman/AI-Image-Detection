@@ -1,0 +1,120 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_resnet50_in1k_jpeg-crop_lr1e-3_s0",
+  "protocol": "A",
+  "model": "resnet50",
+  "init": "in1k",
+  "prep": "jpeg-crop",
+  "lr": 0.001,
+  "seed": 0,
+  "best_epoch": 10,
+  "device": "cuda",
+  "val": {
+    "loss": 0.024436802292242647,
+    "auc": 0.9994745,
+    "acc": 0.992
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2635932069092511,
+      "val_loss": 0.3290508878231049,
+      "val_auc": 0.941625,
+      "val_acc": 0.8725
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.16278646529756766,
+      "val_loss": 0.23664883452653884,
+      "val_auc": 0.9735845,
+      "val_acc": 0.9075
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.12402731074607946,
+      "val_loss": 0.11652827715873718,
+      "val_auc": 0.994347,
+      "val_acc": 0.9555
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.10079290403083047,
+      "val_loss": 0.10001197028160096,
+      "val_auc": 0.993686,
+      "val_acc": 0.963
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.07951555172987482,
+      "val_loss": 0.09996759301424027,
+      "val_auc": 0.9973165,
+      "val_acc": 0.9595
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.06060663747655995,
+      "val_loss": 0.04845521688461304,
+      "val_auc": 0.998266,
+      "val_acc": 0.9845
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.04577449658502113,
+      "val_loss": 0.03574687644839287,
+      "val_auc": 0.998928,
+      "val_acc": 0.9895
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.033593031047360306,
+      "val_loss": 0.031864489518105985,
+      "val_auc": 0.999274,
+      "val_acc": 0.99
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.022663400756857573,
+      "val_loss": 0.02422539044171572,
+      "val_auc": 0.999468,
+      "val_acc": 0.991
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.019116027358817286,
+      "val_loss": 0.024436802292242647,
+      "val_auc": 0.9994745,
+      "val_acc": 0.992
+    }
+  ],
+  "test": {
+    "per_generator_auc": {}
+  },
+  "checkpoint": "/home/hice1/amohammed87/scratch/aidet_runs/A_resnet50_in1k_jpeg-crop_lr1e-3_s0/best.pt",
+  "git_commit": "9df27d7d0650021e75630519a66809a179c1aae5",
+  "timestamp": "2026-11-20T23:29:56.969211+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "resnet50",
+    "init": "in1k",
+    "prep": "jpeg-crop",
+    "lr": 0.001,
+    "seed": 0,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "/home/hice1/amohammed87/scratch/aidet_runs",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_resnet50_in1k_jpeg-crop_lr1e-3_s0"
+  }
+}

@@ -23,7 +23,8 @@ export WANDB_DIR="$SCRATCH_ROOT/.cache/wandb"
 WANDB_MODE="${WANDB_MODE:-online}"   # submit with WANDB_MODE=offline if nodes can't reach W&B, then `wandb sync`
 source "$VENV/bin/activate"
 
-CONFIGS=(configs/lr_sweep/*.yaml)
+CONFIG_DIR="${CONFIG_DIR:-configs/lr_sweep}"
+CONFIGS=("$CONFIG_DIR"/*.yaml)
 CFG="${CONFIGS[$SLURM_ARRAY_TASK_ID]}"
 NAME="$(basename "$CFG" .yaml)"
 RUN_DIR="$(python -c "import yaml,sys; print(yaml.safe_load(open(sys.argv[1]))['output_dir'])" "$CFG")/$NAME"
