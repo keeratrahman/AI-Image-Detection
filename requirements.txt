@@ -5,3 +5,4 @@ pillow>=10.0
 numpy
 pyyaml
 wandb
+matplotlib       # report figures
