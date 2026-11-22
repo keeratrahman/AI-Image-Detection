@@ -21,3 +21,4 @@ genimage_subset/
 *.tar
 logs/
 results/figures/*.npz
+checkpoints
