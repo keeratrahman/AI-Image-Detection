@@ -3,7 +3,7 @@
 
     python scripts/bootstrap_ci.py \\
         --vit runs_final/A_deit-s_in1k_jpeg-crop_lr3e-5_s{0,1,2} \\
-        --cnn runs_final/A_resnet50_in1k_jpeg-crop_lr3e-4_s{0,1,2}
+        --cnn runs_final/A_resnet50_in1k_jpeg-crop_lr1e-4_s{0,1,2}
 
 Needs per-image predictions from `eval.py --save-preds` in <run-dir>/preds/<condition>/<generator>.npz.
 
