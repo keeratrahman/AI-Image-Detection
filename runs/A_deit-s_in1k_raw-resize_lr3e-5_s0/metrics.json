@@ -304,8 +304,8 @@
     }
   },
   "eval": {
-    "timestamp": "2026-11-03T05:43:21.106840+00:00",
-    "git_commit": "5868d4d8fa57c4a8345eec57129d7eb38b1c7294",
+    "timestamp": "2026-11-22T04:43:56.612287+00:00",
+    "git_commit": "f84feb4405207a8e75d4b51c5e9d9ef370d247fb",
     "checkpoint_epoch": 3,
     "manifests": {
       "test_adm": "../genimage_subset/manifests/test_adm.jsonl",
@@ -318,5 +318,99 @@
       "test_wukong": "../genimage_subset/manifests/test_wukong.jsonl"
     },
     "device": "mps"
+  },
+  "aligned_test": {
+    "per_generator_auc": {
+      "test_adm": 0.472699,
+      "test_biggan": 0.633888,
+      "test_glide": 0.7043965,
+      "test_midjourney": 0.737937,
+      "test_sdv14": 0.99612,
+      "test_sdv15": 0.995394,
+      "test_vqdm": 0.673381,
+      "test_wukong": 0.992568
+    },
+    "per_generator_acc": {
+      "test_adm": 0.498,
+      "test_biggan": 0.4995,
+      "test_glide": 0.5435,
+      "test_midjourney": 0.578,
+      "test_sdv14": 0.9765,
+      "test_sdv15": 0.9685,
+      "test_vqdm": 0.5445,
+      "test_wukong": 0.9495
+    },
+    "per_generator_real_acc": {
+      "test_adm": 0.98,
+      "test_biggan": 0.988,
+      "test_glide": 0.983,
+      "test_midjourney": 0.979,
+      "test_sdv14": 0.986,
+      "test_sdv15": 0.98,
+      "test_vqdm": 0.985,
+      "test_wukong": 0.984
+    },
+    "per_generator_fake_acc": {
+      "test_adm": 0.016,
+      "test_biggan": 0.011,
+      "test_glide": 0.104,
+      "test_midjourney": 0.177,
+      "test_sdv14": 0.967,
+      "test_sdv15": 0.957,
+      "test_vqdm": 0.104,
+      "test_wukong": 0.915
+    },
+    "per_generator_precision": {
+      "test_adm": 0.4444444444444444,
+      "test_biggan": 0.4782608695652174,
+      "test_glide": 0.859504132231405,
+      "test_midjourney": 0.8939393939393939,
+      "test_sdv14": 0.9857288481141692,
+      "test_sdv15": 0.9795291709314228,
+      "test_vqdm": 0.8739495798319328,
+      "test_wukong": 0.9828141783029001
+    },
+    "per_generator_recall": {
+      "test_adm": 0.016,
+      "test_biggan": 0.011,
+      "test_glide": 0.104,
+      "test_midjourney": 0.177,
+      "test_sdv14": 0.967,
+      "test_sdv15": 0.957,
+      "test_vqdm": 0.104,
+      "test_wukong": 0.915
+    },
+    "per_generator_f1": {
+      "test_adm": 0.03088803088803089,
+      "test_biggan": 0.021505376344086023,
+      "test_glide": 0.1855486173059768,
+      "test_midjourney": 0.29549248747913187,
+      "test_sdv14": 0.9762746087834427,
+      "test_sdv15": 0.9681335356600911,
+      "test_vqdm": 0.18588025022341376,
+      "test_wukong": 0.9476954945624029
+    },
+    "per_generator_n": {
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.7757979374999999,
+    "mean_acc": 0.69475,
+    "mean_auc_seen": 0.99612,
+    "mean_acc_seen": 0.9765,
+    "mean_auc_near": 0.993981,
+    "mean_acc_near": 0.9590000000000001,
+    "mean_auc_far": 0.6444603000000001,
+    "mean_acc_far": 0.5327,
+    "mean_auc_held_out": 0.7443233571428571,
+    "mean_acc_held_out": 0.6545000000000002,
+    "seen_minus_held_out_auc": 0.25179664285714287,
+    "jpeg_aligned_at_test": true
   }
 }

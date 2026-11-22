@@ -102,10 +102,11 @@ def main_tables(groups):
         rob = lambda spec: values(runs, lambda r: r["robustness"][spec]["mean_auc_held_out"])
         t2.append([label(k, keys), str(len(runs)), fmt(test("mean_auc_seen")), fmt(test("mean_auc_near")),
                    fmt(test("mean_auc_far")), fmt(test("mean_auc_held_out")), fmt(test("seen_minus_held_out_auc")),
-                   fmt(test("mean_acc"))] + [fmt(rob(f"jpeg:{q}")) for q in (95, 75, 50)])
+                   fmt(test("mean_acc")), fmt(values(runs, lambda r: r["aligned_test"]["mean_auc_held_out"]))]
+                  + [fmt(rob(f"jpeg:{q}")) for q in (95, 75, 50)])
 
-    per_gen = [[TEST_GENERATORS[g]] + [fmt(values(groups[k], lambda r: r["test"]["per_generator_auc"][g]))
-                                      for k in keys] for g in TEST_GENERATORS]
+    per_gen = lambda block: [[TEST_GENERATORS[g]] + [fmt(values(groups[k], lambda r: r[block]["per_generator_auc"][g]))
+                                                    for k in keys] for g in TEST_GENERATORS]
 
     specs = [s for s in ROBUSTNESS if any(s in r.get("robustness", {}) for k in keys for r in groups[k])]
     rob_rows = [[label(k, keys)] + [fmt(values(groups[k], lambda r: r["robustness"][s]["mean_auc"])) for s in specs]
@@ -113,9 +114,12 @@ def main_tables(groups):
 
     names = [label(k, keys) for k in keys]
     lines = [f"## Table 2: test AUC by generator group ({MAIN_PREP}, mean ± std over seeds)", ""]
-    lines += table(["Model", "Seeds", "Seen", "Near", "Far", "Held-out", "Gap", "Acc",
+    lines += table(["Model", "Seeds", "Seen", "Near", "Far", "Held-out", "Gap", "Acc", "Held-out aligned",
                     "Held-out JPEG 95", "JPEG 75", "JPEG 50"], t2)
-    lines += ["## Test AUC by generator", ""] + table(["Generator"] + names, per_gen)
+    lines += ["## Test AUC by generator", ""] + table(["Generator"] + names, per_gen("test"))
+    if any("aligned_test" in r for k in keys for r in groups[k]):
+        lines += ["## Aligned test AUC by generator (fakes re-encoded as JPEG q96)", ""]
+        lines += table(["Generator"] + names, per_gen("aligned_test"))
     if specs:
         lines += ["## Robustness: mean AUC over all 8 generators", ""] + table(["Model"] + specs, rob_rows)
     return lines, keys
