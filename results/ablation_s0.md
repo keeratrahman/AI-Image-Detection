@@ -4,41 +4,39 @@
 
 | Model | Seeds | Seen | Near | Far | Held-out | Gap | Acc | Held-out aligned | Held-out JPEG 95 | JPEG 75 | JPEG 50 |
 |---|---|---|---|---|---|---|---|---|---|---|---|
-| ResNet-18 | 1 | 0.998 | 0.984 | 0.709 | 0.788 | 0.210 | 0.702 | 0.897 | 0.748 | 0.659 | 0.620 |
 | ResNet-50 | 1 | 0.999 | 0.985 | 0.713 | 0.791 | 0.208 | 0.704 | 0.899 | 0.745 | 0.705 | 0.660 |
 | DeiT-S | 1 | 0.998 | 0.990 | 0.793 | 0.849 | 0.149 | 0.730 | 0.911 | 0.812 | 0.713 | 0.726 |
 
 ## Test AUC by generator
 
-| Generator | ResNet-18 | ResNet-50 | DeiT-S |
-|---|---|---|---|
-| SD1.4 | 0.998 | 0.999 | 0.998 |
-| SD1.5 | 0.997 | 0.999 | 0.998 |
-| Wukong | 0.970 | 0.972 | 0.981 |
-| ADM | 0.678 | 0.676 | 0.690 |
-| GLIDE | 0.785 | 0.758 | 0.871 |
-| VQDM | 0.651 | 0.717 | 0.750 |
-| MJ | 0.949 | 0.949 | 0.956 |
-| BigGAN | 0.484 | 0.463 | 0.700 |
+| Generator | ResNet-50 | DeiT-S |
+|---|---|---|
+| SD1.4 | 0.999 | 0.998 |
+| SD1.5 | 0.999 | 0.998 |
+| Wukong | 0.972 | 0.981 |
+| ADM | 0.676 | 0.690 |
+| GLIDE | 0.758 | 0.871 |
+| VQDM | 0.717 | 0.750 |
+| MJ | 0.949 | 0.956 |
+| BigGAN | 0.463 | 0.700 |
 
 ## Aligned test AUC by generator (fakes re-encoded as JPEG q96)
 
-| Generator | ResNet-18 | ResNet-50 | DeiT-S |
-|---|---|---|---|
-| SD1.4 | 1.000 | 1.000 | 1.000 |
-| SD1.5 | 0.999 | 1.000 | 0.999 |
-| Wukong | 0.997 | 0.997 | 0.998 |
-| ADM | 0.865 | 0.892 | 0.884 |
-| GLIDE | 0.880 | 0.878 | 0.921 |
-| VQDM | 0.871 | 0.915 | 0.932 |
-| MJ | 0.969 | 0.974 | 0.972 |
-| BigGAN | 0.700 | 0.638 | 0.670 |
+| Generator | ResNet-50 | DeiT-S |
+|---|---|---|
+| SD1.4 | 1.000 | 1.000 |
+| SD1.5 | 1.000 | 0.999 |
+| Wukong | 0.997 | 0.998 |
+| ADM | 0.892 | 0.884 |
+| GLIDE | 0.878 | 0.921 |
+| VQDM | 0.915 | 0.932 |
+| MJ | 0.974 | 0.972 |
+| BigGAN | 0.638 | 0.670 |
 
 ## Robustness: mean AUC over all 8 generators
 
 | Model | jpeg:95 | jpeg:75 | jpeg:50 | jpeg:96 | blur:1 | blur:2 | rescale:0.5 |
 |---|---|---|---|---|---|---|---|
-| ResNet-18 | 0.779 | 0.697 | 0.654 | 0.785 | 0.766 | 0.749 | 0.777 |
 | ResNet-50 | 0.776 | 0.737 | 0.685 | 0.786 | 0.810 | 0.715 | 0.816 |
 | DeiT-S | 0.835 | 0.746 | 0.751 | 0.845 | 0.810 | 0.745 | 0.809 |
 
@@ -59,7 +57,6 @@ q=96: real and fake JPEG-compressed at test time. Aligned: only non-JPEG fakes r
 
 Runs:
 
-- `A_resnet18_in1k_jpeg-crop_lr3e-4_s0`
 - `A_resnet50_in1k_raw-resize_lr3e-4_s0`
 - `A_resnet50_in1k_raw-crop_lr3e-4_s0`
 - `A_resnet50_in1k_jpeg-resize_lr3e-4_s0`
