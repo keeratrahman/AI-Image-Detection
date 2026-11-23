@@ -11,6 +11,12 @@ Tokens may not contain "_" (it is the field separator); use "-" inside a token.
 PREPS = ("raw-resize", "raw-crop", "jpeg-resize", "jpeg-crop")
 INITS = ("in1k", "scratch")
 
+# test manifest stem -> plot label, in report order: seen, near, far
+TEST_GENERATORS = {
+    "test_sdv14": "SD1.4", "test_sdv15": "SD1.5", "test_wukong": "Wukong", "test_adm": "ADM",
+    "test_glide": "GLIDE", "test_vqdm": "VQDM", "test_midjourney": "MJ", "test_biggan": "BigGAN",
+}
+
 
 def fmt_lr(lr: float) -> str:
     """0.0003 -> '3e-4', 1e-4 -> '1e-4', 1.5e-4 -> '1.5e-4'."""

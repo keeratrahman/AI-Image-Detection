@@ -13,6 +13,10 @@ runs_final/*/*
 runs/*/*
 !runs/*/metrics.json
 !runs/*/config.yaml
+!runs_pace/
+runs_pace/*/*
+!runs_pace/*/metrics.json
+!runs_pace/*/config.yaml
 wandb/
 genimage_dl/
 genimage_pool/
@@ -20,3 +24,4 @@ genimage_subset/
 *.zip
 *.tar
 logs/
+results/figures/*.npz
