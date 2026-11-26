@@ -1,0 +1,416 @@
+{
+  "schema_version": "0.1-provisional",
+  "run_name": "A_resnet50_in1k_jpeg-resize_lr1e-4_s0",
+  "protocol": "A",
+  "model": "resnet50",
+  "init": "in1k",
+  "prep": "jpeg-resize",
+  "lr": 0.0001,
+  "seed": 0,
+  "best_epoch": 9,
+  "device": "cuda",
+  "val": {
+    "loss": 0.06768201242014765,
+    "auc": 0.997954,
+    "acc": 0.977
+  },
+  "history": [
+    {
+      "epoch": 1,
+      "train_loss": 0.2839842287893283,
+      "val_loss": 0.2406086928844452,
+      "val_auc": 0.9879495,
+      "val_acc": 0.902
+    },
+    {
+      "epoch": 2,
+      "train_loss": 0.08612795451526495,
+      "val_loss": 0.13240254342556,
+      "val_auc": 0.9928505,
+      "val_acc": 0.9445
+    },
+    {
+      "epoch": 3,
+      "train_loss": 0.03825077773096727,
+      "val_loss": 0.11464680126309394,
+      "val_auc": 0.9928565,
+      "val_acc": 0.96
+    },
+    {
+      "epoch": 4,
+      "train_loss": 0.025726418971472525,
+      "val_loss": 0.09126247983425856,
+      "val_auc": 0.9954315,
+      "val_acc": 0.9685
+    },
+    {
+      "epoch": 5,
+      "train_loss": 0.010903513561722568,
+      "val_loss": 0.08117271953821183,
+      "val_auc": 0.997001,
+      "val_acc": 0.975
+    },
+    {
+      "epoch": 6,
+      "train_loss": 0.007776212442745977,
+      "val_loss": 0.09372060424089432,
+      "val_auc": 0.9967755,
+      "val_acc": 0.971
+    },
+    {
+      "epoch": 7,
+      "train_loss": 0.0028481654516847076,
+      "val_loss": 0.07801447843015194,
+      "val_auc": 0.997659,
+      "val_acc": 0.9715
+    },
+    {
+      "epoch": 8,
+      "train_loss": 0.003655045484041703,
+      "val_loss": 0.08257369620352983,
+      "val_auc": 0.99784,
+      "val_acc": 0.9695
+    },
+    {
+      "epoch": 9,
+      "train_loss": 0.0011898119714301588,
+      "val_loss": 0.06768201242014765,
+      "val_auc": 0.997954,
+      "val_acc": 0.977
+    },
+    {
+      "epoch": 10,
+      "train_loss": 0.0012281068969103334,
+      "val_loss": 0.07045582957565784,
+      "val_auc": 0.997844,
+      "val_acc": 0.9755
+    }
+  ],
+  "test": {
+    "per_generator_auc": {
+      "test_adm": 0.549397,
+      "test_biggan": 0.409491,
+      "test_glide": 0.577668,
+      "test_midjourney": 0.798112,
+      "test_sdv14": 0.997872,
+      "test_sdv15": 0.994926,
+      "test_vqdm": 0.606218,
+      "test_wukong": 0.991197
+    },
+    "per_generator_acc": {
+      "test_adm": 0.4975,
+      "test_biggan": 0.4865,
+      "test_glide": 0.5105,
+      "test_midjourney": 0.6365,
+      "test_sdv14": 0.9795,
+      "test_sdv15": 0.972,
+      "test_vqdm": 0.515,
+      "test_wukong": 0.9425
+    },
+    "per_generator_real_acc": {
+      "test_adm": 0.972,
+      "test_biggan": 0.971,
+      "test_glide": 0.968,
+      "test_midjourney": 0.976,
+      "test_sdv14": 0.978,
+      "test_sdv15": 0.969,
+      "test_vqdm": 0.967,
+      "test_wukong": 0.978
+    },
+    "per_generator_fake_acc": {
+      "test_adm": 0.023,
+      "test_biggan": 0.002,
+      "test_glide": 0.053,
+      "test_midjourney": 0.297,
+      "test_sdv14": 0.981,
+      "test_sdv15": 0.975,
+      "test_vqdm": 0.063,
+      "test_wukong": 0.907
+    },
+    "per_generator_precision": {
+      "test_adm": 0.45098039215686275,
+      "test_biggan": 0.06451612903225806,
+      "test_glide": 0.6235294117647059,
+      "test_midjourney": 0.9252336448598131,
+      "test_sdv14": 0.9780658025922233,
+      "test_sdv15": 0.9691848906560636,
+      "test_vqdm": 0.65625,
+      "test_wukong": 0.976318622174381
+    },
+    "per_generator_recall": {
+      "test_adm": 0.023,
+      "test_biggan": 0.002,
+      "test_glide": 0.053,
+      "test_midjourney": 0.297,
+      "test_sdv14": 0.981,
+      "test_sdv15": 0.975,
+      "test_vqdm": 0.063,
+      "test_wukong": 0.907
+    },
+    "per_generator_f1": {
+      "test_adm": 0.04376784015223597,
+      "test_biggan": 0.0038797284190106693,
+      "test_glide": 0.09769585253456221,
+      "test_midjourney": 0.44965934897804694,
+      "test_sdv14": 0.9795307039440839,
+      "test_sdv15": 0.9720837487537388,
+      "test_vqdm": 0.11496350364963503,
+      "test_wukong": 0.9403836184551582
+    },
+    "per_generator_n": {
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.740610125,
+    "mean_acc": 0.6924999999999999,
+    "mean_auc_seen": 0.997872,
+    "mean_acc_seen": 0.9795,
+    "mean_auc_near": 0.9930615,
+    "mean_acc_near": 0.9572499999999999,
+    "mean_auc_far": 0.5881772000000001,
+    "mean_acc_far": 0.5292,
+    "mean_auc_held_out": 0.7038584285714286,
+    "mean_acc_held_out": 0.6515000000000001,
+    "seen_minus_held_out_auc": 0.29401357142857143,
+    "jpeg_aligned_at_test": false
+  },
+  "checkpoint": "runs_final/A_resnet50_in1k_jpeg-resize_lr1e-4_s0/best.pt",
+  "git_commit": "43e5d6f837ee358f454363a4eed0badcb2deaaa9",
+  "timestamp": "2026-11-25T18:32:28.893974+00:00",
+  "config": {
+    "protocol": "A",
+    "model": "resnet50",
+    "init": "in1k",
+    "prep": "jpeg-resize",
+    "lr": 0.0001,
+    "seed": 0,
+    "epochs": 10,
+    "batch_size": 64,
+    "weight_decay": 0.01,
+    "warmup_frac": 0.05,
+    "amp": true,
+    "num_workers": 8,
+    "data": {
+      "name": "genimage",
+      "train_manifest": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/A_train.jsonl",
+      "val_manifest": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/A_val.jsonl"
+    },
+    "output_dir": "runs_final",
+    "wandb": {
+      "project": "ai-image-detection",
+      "mode": "online"
+    },
+    "run_name": "A_resnet50_in1k_jpeg-resize_lr1e-4_s0"
+  },
+  "aligned_test": {
+    "per_generator_auc": {
+      "test_adm": 0.653324,
+      "test_biggan": 0.48787,
+      "test_glide": 0.614058,
+      "test_midjourney": 0.799395,
+      "test_sdv14": 0.998413,
+      "test_sdv15": 0.995808,
+      "test_vqdm": 0.699483,
+      "test_wukong": 0.993898
+    },
+    "per_generator_acc": {
+      "test_adm": 0.5165,
+      "test_biggan": 0.488,
+      "test_glide": 0.5185,
+      "test_midjourney": 0.6365,
+      "test_sdv14": 0.9815,
+      "test_sdv15": 0.975,
+      "test_vqdm": 0.5525,
+      "test_wukong": 0.9545
+    },
+    "per_generator_real_acc": {
+      "test_adm": 0.972,
+      "test_biggan": 0.971,
+      "test_glide": 0.968,
+      "test_midjourney": 0.976,
+      "test_sdv14": 0.978,
+      "test_sdv15": 0.969,
+      "test_vqdm": 0.967,
+      "test_wukong": 0.978
+    },
+    "per_generator_fake_acc": {
+      "test_adm": 0.061,
+      "test_biggan": 0.005,
+      "test_glide": 0.069,
+      "test_midjourney": 0.297,
+      "test_sdv14": 0.985,
+      "test_sdv15": 0.981,
+      "test_vqdm": 0.138,
+      "test_wukong": 0.931
+    },
+    "per_generator_precision": {
+      "test_adm": 0.6853932584269663,
+      "test_biggan": 0.14705882352941177,
+      "test_glide": 0.6831683168316832,
+      "test_midjourney": 0.9252336448598131,
+      "test_sdv14": 0.9781529294935452,
+      "test_sdv15": 0.9693675889328063,
+      "test_vqdm": 0.8070175438596491,
+      "test_wukong": 0.9769150052465897
+    },
+    "per_generator_recall": {
+      "test_adm": 0.061,
+      "test_biggan": 0.005,
+      "test_glide": 0.069,
+      "test_midjourney": 0.297,
+      "test_sdv14": 0.985,
+      "test_sdv15": 0.981,
+      "test_vqdm": 0.138,
+      "test_wukong": 0.931
+    },
+    "per_generator_f1": {
+      "test_adm": 0.11202938475665748,
+      "test_biggan": 0.009671179883945842,
+      "test_glide": 0.12534059945504086,
+      "test_midjourney": 0.44965934897804694,
+      "test_sdv14": 0.9815645241654211,
+      "test_sdv15": 0.9751491053677932,
+      "test_vqdm": 0.23569598633646455,
+      "test_wukong": 0.953405017921147
+    },
+    "per_generator_n": {
+      "test_adm": 2000,
+      "test_biggan": 2000,
+      "test_glide": 2000,
+      "test_midjourney": 2000,
+      "test_sdv14": 2000,
+      "test_sdv15": 2000,
+      "test_vqdm": 2000,
+      "test_wukong": 2000
+    },
+    "mean_auc": 0.780281125,
+    "mean_acc": 0.7028749999999999,
+    "mean_auc_seen": 0.998413,
+    "mean_acc_seen": 0.9815,
+    "mean_auc_near": 0.994853,
+    "mean_acc_near": 0.96475,
+    "mean_auc_far": 0.650826,
+    "mean_acc_far": 0.5424,
+    "mean_auc_held_out": 0.7491194285714285,
+    "mean_acc_held_out": 0.6630714285714284,
+    "seen_minus_held_out_auc": 0.24929357142857145,
+    "jpeg_aligned_at_test": true
+  },
+  "robustness": {
+    "jpeg:96": {
+      "per_generator_auc": {
+        "test_adm": 0.582101,
+        "test_biggan": 0.41264,
+        "test_glide": 0.545203,
+        "test_midjourney": 0.758016,
+        "test_sdv14": 0.99729,
+        "test_sdv15": 0.993754,
+        "test_vqdm": 0.645054,
+        "test_wukong": 0.990599
+      },
+      "per_generator_acc": {
+        "test_adm": 0.511,
+        "test_biggan": 0.4805,
+        "test_glide": 0.514,
+        "test_midjourney": 0.6295,
+        "test_sdv14": 0.9785,
+        "test_sdv15": 0.9645,
+        "test_vqdm": 0.5495,
+        "test_wukong": 0.9495
+      },
+      "per_generator_real_acc": {
+        "test_adm": 0.961,
+        "test_biggan": 0.956,
+        "test_glide": 0.959,
+        "test_midjourney": 0.962,
+        "test_sdv14": 0.972,
+        "test_sdv15": 0.948,
+        "test_vqdm": 0.961,
+        "test_wukong": 0.968
+      },
+      "per_generator_fake_acc": {
+        "test_adm": 0.061,
+        "test_biggan": 0.005,
+        "test_glide": 0.069,
+        "test_midjourney": 0.297,
+        "test_sdv14": 0.985,
+        "test_sdv15": 0.981,
+        "test_vqdm": 0.138,
+        "test_wukong": 0.931
+      },
+      "per_generator_precision": {
+        "test_adm": 0.61,
+        "test_biggan": 0.10204081632653061,
+        "test_glide": 0.6272727272727273,
+        "test_midjourney": 0.8865671641791045,
+        "test_sdv14": 0.9723593287265548,
+        "test_sdv15": 0.9496611810261375,
+        "test_vqdm": 0.7796610169491526,
+        "test_wukong": 0.9667705088265836
+      },
+      "per_generator_recall": {
+        "test_adm": 0.061,
+        "test_biggan": 0.005,
+        "test_glide": 0.069,
+        "test_midjourney": 0.297,
+        "test_sdv14": 0.985,
+        "test_sdv15": 0.981,
+        "test_vqdm": 0.138,
+        "test_wukong": 0.931
+      },
+      "per_generator_f1": {
+        "test_adm": 0.11090909090909092,
+        "test_biggan": 0.009532888465204958,
+        "test_glide": 0.12432432432432433,
+        "test_midjourney": 0.4449438202247191,
+        "test_sdv14": 0.9786388474913065,
+        "test_sdv15": 0.9650762420068864,
+        "test_vqdm": 0.2344944774851317,
+        "test_wukong": 0.9485481406011207
+      },
+      "per_generator_n": {
+        "test_adm": 2000,
+        "test_biggan": 2000,
+        "test_glide": 2000,
+        "test_midjourney": 2000,
+        "test_sdv14": 2000,
+        "test_sdv15": 2000,
+        "test_vqdm": 2000,
+        "test_wukong": 2000
+      },
+      "mean_auc": 0.740582125,
+      "mean_acc": 0.697125,
+      "mean_auc_seen": 0.99729,
+      "mean_acc_seen": 0.9785,
+      "mean_auc_near": 0.9921765,
+      "mean_acc_near": 0.9570000000000001,
+      "mean_auc_far": 0.5886028000000001,
+      "mean_acc_far": 0.5368999999999999,
+      "mean_auc_held_out": 0.7039095714285715,
+      "mean_acc_held_out": 0.6569285714285715,
+      "seen_minus_held_out_auc": 0.29338042857142854
+    }
+  },
+  "eval": {
+    "timestamp": "2026-11-25T19:27:42.045418+00:00",
+    "git_commit": "43e5d6f837ee358f454363a4eed0badcb2deaaa9",
+    "checkpoint_epoch": 9,
+    "manifests": {
+      "test_adm": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_adm.jsonl",
+      "test_biggan": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_biggan.jsonl",
+      "test_glide": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_glide.jsonl",
+      "test_midjourney": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_midjourney.jsonl",
+      "test_sdv14": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_sdv14.jsonl",
+      "test_sdv15": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_sdv15.jsonl",
+      "test_vqdm": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_vqdm.jsonl",
+      "test_wukong": "/home/hice1/amohammed87/scratch/genimage_subset/manifests/test_wukong.jsonl"
+    },
+    "device": "cuda"
+  }
+}
