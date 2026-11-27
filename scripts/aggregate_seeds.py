@@ -21,7 +21,8 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from aidet.naming import PREPS, TEST_GENERATORS, fmt_lr  # noqa: E402
 
-MODEL_NAMES = {"resnet18": "ResNet-18", "resnet50": "ResNet-50", "deit-s": "DeiT-S", "cnn-small": "CNN-small"}
+MODEL_NAMES = {"resnet18": "ResNet-18", "resnet50": "ResNet-50", "deit-s": "DeiT-S", "cnn-small": "CNN-small",
+               "clip-l14-probe": "CLIP ViT-L/14 probe"}
 ROBUSTNESS = ["jpeg:95", "jpeg:75", "jpeg:50", "jpeg:96", "blur:1", "blur:2", "rescale:0.5"]
 MAIN_PREP = "jpeg-crop"
 
@@ -78,7 +79,7 @@ def table(header, rows):
 def model_order(key):
     model, init, prep, lr = key
     rank = list(MODEL_NAMES).index(model) if model in MODEL_NAMES else len(MODEL_NAMES)
-    return rank, model, init, PREPS.index(prep) if prep in PREPS else len(PREPS), -lr
+    return rank, model, init, PREPS.index(prep) if prep in PREPS else len(PREPS), -(lr or 0)  # probe runs have lr=None
 
 
 def label(key, keys):

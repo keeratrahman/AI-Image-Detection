@@ -25,3 +25,5 @@ genimage_subset/
 *.tar
 logs/
 results/figures/*.npz
+updated_data/
+features/
