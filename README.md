@@ -101,6 +101,21 @@ Clean test AUC (mean ± std over 3 seeds; CLIP is 1 deterministic run):
   - The `config.yaml` saved inside each `runs_final/` run is the exact config used.
   - `configs/final/` still holds the original `lr3e-4` ResNet-50 files.
 
+### Task 2: LR grid extended at the edges
+
+- **Why:** at the midterm, every model's best LR sat at the edge of its grid.
+- **What was run:** the seed-0 sweep was re-run on PACE with one extra LR per model. Configs are in
+  `configs/lr_edges/` and runs in `runs_pace/`.
+  - ResNet-50 and ResNet-18: {1e-3, 3e-4, 1e-4, 3e-5}
+  - DeiT-S: {3e-4, 1e-4, 3e-5, 1e-5}
+- **Selection rule (fixed before looking):** highest seen-generator validation AUC. LRs within 0.0005 of the
+  best count as tied, and ties are broken by lowest validation loss (`python scripts/best_lr.py runs_pace`).
+- **Outcome** (full sweep in `bestruns.txt`):
+  - **ResNet-50:** moved to **1e-4**, inside the grid, so its three seeds were retrained.
+  - **ResNet-18 → 1e-3, DeiT-S → 1e-5:** both are again at the edge. Following the plan's rule, the grid
+    was not extended further. The final runs keep the original LRs (ResNet-18 3e-4, DeiT-S 3e-5), and this
+    is reported as a limitation.
+
 ### Task 3: per-image predictions and the H1 CI
 
 - **`eval.py --save-preds`:** writes `logits`, `labels`, `paths` (relative to the dataset root) and the
@@ -113,6 +128,39 @@ Clean test AUC (mean ± std over 3 seeds; CLIP is 1 deterministic run):
   - CI: 10,000 resamples, drawing real and fake images with replacement within each generator. The same
     indices are used for every model and seed. CI = 2.5th–97.5th percentile.
   - The script also checks that all runs scored the same images in the same order.
+
+### Task 4: format-matched (aligned) test
+
+- **Why:** in every test set the reals are JPEG and most fakes are PNG, so a model can score well with the
+  rule "PNG = fake". The `jpeg:96` robustness test does not remove this, because it compresses the reals a
+  second time and the fakes only once.
+- **What:** `eval.py --aligned-test` builds the test sets with `jpeg_aligned=True`, which re-encodes only
+  the non-JPEG fakes at q96. Both classes are then single-compressed JPEGs.
+  - Results go to `metrics["aligned_test"]` (same fields as `test`; `test` is not overwritten).
+  - Per-image preds go to `preds/aligned/`.
+- **Coverage:**
+  - Done for the ResNet-50 `jpeg-crop` runs (3 seeds), the three ResNet-50 ablation variants, and the
+    CLIP probe.
+  - Not yet run for DeiT-S or ResNet-18, so those cells are empty in the tables.
+  - There is no separate `results/aligned_test.md`. The clean vs. aligned columns are in Table 3 of
+    `results/final_tables.md`.
+- **Caveat for the report:** the aligned test matches the `jpeg-*` training distribution, so it slightly
+  favors those models. Report clean and aligned results side by side.
+
+### Task 5: preprocessing-ablation runs
+
+- **Variants:** the three non-default preprocessing variants, each trained at ResNet-50's final LR (1e-4).
+  - `raw-resize`: no JPEG alignment, resize to 224
+  - `raw-crop`: no JPEG alignment, crop
+  - `jpeg-resize`: JPEG alignment, resize
+- **Evaluation:** each run was evaluated with the clean test, `--robustness jpeg:96`, `--aligned-test` and
+  `--save-preds`.
+- **Scripts:** `scripts/pace/eval.sbatch` runs evals like these as a SLURM array over run folders.
+- **Coverage:**
+  - Only seed 0 for ResNet-50 exists: `runs_final/A_resnet50_in1k_{raw-resize,raw-crop,jpeg-resize}_lr1e-4_s0/`.
+  - The `jpeg-crop` row of Table 3 reuses the 3 Task 1 seeds.
+  - The plan's seeds 1–2 and the DeiT-S variants were not run, so the ablation rows are single-seed.
+- **Caveat:** the variants reuse the `jpeg-crop` LR instead of their own sweep.
 
 ### Task 6: CLIP ViT-L/14 linear probe
 
@@ -129,6 +177,22 @@ Two steps, so the slow part (feature extraction) runs once:
    - It scores every test condition with `eval.score` / `eval.summarize`.
    - It writes `metrics.json` in the same format as trained runs, plus per-image preds. So `compare.py`,
      `aggregate_seeds.py` and `bootstrap_ci.py` work on it unchanged.
+
+### Task 7a: FFT spectra
+
+- **Script:** `scripts/fft_spectra.py`. It uses test images only, with no model involved.
+- **Method:** for each generator, take 500 fakes and 500 reals, apply the same 224 center-crop eval view,
+  and convert to grayscale.
+  - High-pass residual = image minus its 3×3 median filter.
+  - The figure shows log10 of the mean power spectrum (`fftshift(fft2(residual))`) for fakes, reals and
+    fake − real, one column per generator.
+- **Figures:**
+  - `results/figures/fft_spectra.png`: test images as stored.
+  - `results/figures/fft_spectra_aligned.png`: run with `--jpeg-align`, which re-encodes non-JPEG fakes at
+    q96 first, as in training. This separates generator artifacts from the JPEG-vs-PNG difference.
+- **What to look for:** periodic grid peaks in SD v1.4 / v1.5 / Wukong (from the shared VAE upsampler), and
+  a different pattern for BigGAN. This would support H1's reasoning: the CNN fits SD-specific peaks that do
+  not transfer.
 
 ### Task 7b: Grad-CAM
 
