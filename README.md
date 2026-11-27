@@ -170,7 +170,7 @@ Two steps, so the slow part (feature extraction) runs once:
 | `scripts/run_lr_sweep.sh` | Runs every config in `CONFIG_DIR` (default `configs/lr_sweep/`), skipping finished runs |
 | `scripts/pace/` | PACE-ICE (SLURM) scripts: training array (`lr_sweep.sbatch`, takes `CONFIG_DIR`) and eval array (`eval.sbatch`) |
 | `scripts/make_subset.py`, `scripts/sample_zip.py` | Build the balanced GenImage subset and its manifests (see `docs/DATA.md`) |
-| `configs/` | `lr_sweep/` (midterm sweep + ablation), `lr_edges/` (Task 2 grid), `final/` (Task 1 seeds), `smoke/` |
+| `configs/` | `lr_sweep/` (midterm sweep + ablation), `lr_edges/` (Task 2 grid), `final/` (Task 1 seeds). `smoke/` is generated locally (see Setup) |
 | `runs/` | Midterm runs (seed 0, M5) |
 | `runs_pace/` | Task 2 LR sweep re-run on PACE |
 | `runs_final/` | Final runs: 3 models × 3 seeds, the ablation variants, the CLIP probe |
@@ -187,7 +187,15 @@ storage.
 ```
 python -m venv .venv && source .venv/bin/activate      # or: uv venv; any Python 3.11+
 pip install -r requirements.txt
-python train.py --config configs/smoke/A_resnet18_scratch_jpeg-crop_lr1e-3_s0.yaml   # quick pipeline check
+```
+
+Quick pipeline check on stub data (no dataset needed). `configs/smoke/` is not in git, so generate it first:
+
+```
+python make_configs.py --data stub --init scratch --models resnet18 --lrs 1e-3 \
+  --preps jpeg-crop --epochs 3 --batch-size 32 --num-workers 0 --wandb-mode disabled \
+  --output-dir runs_smoke --out configs/smoke
+python train.py --config configs/smoke/A_resnet18_scratch_jpeg-crop_lr1e-3_s0.yaml
 ```
 
 Data: follow [docs/DATA.md](docs/DATA.md). The commands below assume the subset is at `../genimage_subset`.
