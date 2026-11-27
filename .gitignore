@@ -26,3 +26,4 @@ genimage_subset/
 logs/
 results/figures/*.npz
 updated_data/
+features/
