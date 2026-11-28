@@ -26,3 +26,5 @@ genimage_subset/
 logs/
 results/figures/*.npz
 checkpoints
+updated_data/
+features/

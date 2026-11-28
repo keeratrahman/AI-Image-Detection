@@ -1,0 +1,107 @@
+{
+  "resnet50_run": "runs_final/A_resnet50_in1k_jpeg-crop_lr1e-4_s0",
+  "deit_s_run": "runs_final/A_deit-s_in1k_jpeg-crop_lr3e-5_s0",
+  "method": {
+    "ResNet-50": "Grad-CAM at layer4[-1]",
+    "DeiT-S": "Grad-CAM at blocks[-1].norm1, patch tokens -> 14x14",
+    "target": "the single fake logit"
+  },
+  "examples": [
+    {
+      "generator": "test_sdv14",
+      "category": "both right",
+      "row": 1379,
+      "path": "images/sdv14/val/ai/247_sdv4_00039.png",
+      "resnet50_logit": 13.224390983581543,
+      "deit_s_logit": 8.489300727844238
+    },
+    {
+      "generator": "test_sdv14",
+      "category": "both right",
+      "row": 810,
+      "path": "images/sdv14/val/ai/763_sdv4_00074.png",
+      "resnet50_logit": 12.553040504455566,
+      "deit_s_logit": 8.433772087097168
+    },
+    {
+      "generator": "test_sdv14",
+      "category": "both right",
+      "row": 1062,
+      "path": "images/sdv14/val/ai/018_sdv4_00143.png",
+      "resnet50_logit": 11.851850509643555,
+      "deit_s_logit": 8.431416511535645
+    },
+    {
+      "generator": "test_sdv14",
+      "category": "both right",
+      "row": 922,
+      "path": "images/sdv14/val/ai/198_sdv4_00074.png",
+      "resnet50_logit": 9.393288612365723,
+      "deit_s_logit": 8.378108024597168
+    },
+    {
+      "generator": "test_glide",
+      "category": "DeiT-S right, ResNet-50 wrong",
+      "row": 292,
+      "path": "images/glide/val/ai/GLIDE_1000_200_09_992_glide_00039.png",
+      "resnet50_logit": -10.319777488708496,
+      "deit_s_logit": 3.1041500568389893
+    },
+    {
+      "generator": "test_glide",
+      "category": "DeiT-S right, ResNet-50 wrong",
+      "row": 1889,
+      "path": "images/glide/val/ai/GLIDE_1000_200_04_461_glide_00143.png",
+      "resnet50_logit": -8.133316993713379,
+      "deit_s_logit": 4.197322845458984
+    },
+    {
+      "generator": "test_glide",
+      "category": "DeiT-S right, ResNet-50 wrong",
+      "row": 770,
+      "path": "images/glide/val/ai/GLIDE_1000_200_06_602_glide_00127.png",
+      "resnet50_logit": -9.912687301635742,
+      "deit_s_logit": 2.069129228591919
+    },
+    {
+      "generator": "test_glide",
+      "category": "DeiT-S right, ResNet-50 wrong",
+      "row": 1575,
+      "path": "images/glide/val/ai/GLIDE_1000_200_09_921_glide_00127.png",
+      "resnet50_logit": -8.78817367553711,
+      "deit_s_logit": 2.8877129554748535
+    },
+    {
+      "generator": "test_biggan",
+      "category": "both wrong",
+      "row": 262,
+      "path": "images/biggan/val/ai/207_biggan_00074.png",
+      "resnet50_logit": -15.05246353149414,
+      "deit_s_logit": -8.193593978881836
+    },
+    {
+      "generator": "test_biggan",
+      "category": "both wrong",
+      "row": 777,
+      "path": "images/biggan/val/ai/271_biggan_00074.png",
+      "resnet50_logit": -15.5158109664917,
+      "deit_s_logit": -8.183427810668945
+    },
+    {
+      "generator": "test_biggan",
+      "category": "both wrong",
+      "row": 1367,
+      "path": "images/biggan/val/ai/168_biggan_00035.png",
+      "resnet50_logit": -12.741226196289062,
+      "deit_s_logit": -8.129593849182129
+    },
+    {
+      "generator": "test_biggan",
+      "category": "both wrong",
+      "row": 50,
+      "path": "images/biggan/val/ai/486_biggan_00143.png",
+      "resnet50_logit": -13.886420249938965,
+      "deit_s_logit": -8.120818138122559
+    }
+  ]
+}
